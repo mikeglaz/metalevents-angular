@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <a href="" class="navbar-brand">Metalevents</a>
+  <button
+    class="navbar-toggler"
+    type="button" data-toggle="collapse"
+    data-target="#navbarContent"
+    (click)="collapsed = !collapsed">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="navbar-collapse"  [class.collapse]="collapsed" id="navbarContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" ngbDropdown>
+        <a class="nav-link" style="cursor: pointer" ngbDropdownToggle id="eventsDropdown1">
+          Events
+        </a>
+
+        <div ngbDropdownMenu class="dropdown-menu" >
+          <a ngbDropdownItem href="#">
+            Events
+          </a>
+          <a ngbDropdownItem href="#">
+            New Event
+          </a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a href="" class="nav-link">Calendar</a>
+      </li>
+      <li class="nav-item"><a href="" class="nav-link">Venues</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!--          <button class="btn btn-outline-primary" id="eventsDropdown" ngbDropdownToggle>
+          Events
+        </button> -->
