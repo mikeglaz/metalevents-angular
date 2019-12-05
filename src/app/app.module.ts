@@ -9,6 +9,7 @@ import { EventsComponent } from './events/events.component';
 import { EventListComponent } from './events/event-list/event-list.component';
 import { EventItemComponent } from './events/event-list/event-item/event-item.component';
 import { EventDetailComponent } from './events/event-detail/event-detail.component';
+import { VenuesComponent } from './venues/venues.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { EventDetailComponent } from './events/event-detail/event-detail.compone
     EventsComponent,
     EventListComponent,
     EventItemComponent,
-    EventDetailComponent
+    EventDetailComponent,
+    VenuesComponent
   ],
   imports: [
     BrowserModule,
