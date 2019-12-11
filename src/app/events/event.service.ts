@@ -48,7 +48,7 @@ export class EventService {
 
   constructor() { }
 
-  getEvents() {
+  getEvents(): Event[] {
     return this.events.slice();
   }
 }

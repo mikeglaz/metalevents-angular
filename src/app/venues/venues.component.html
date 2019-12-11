@@ -1,1 +1,11 @@
-<p>venues works!</p>
+<div class="row">
+  <div class="col-5">
+    <a
+      style="cursor: pointer"
+      class="list-group-item list-group-item-action"
+      li *ngFor="let venue of venues">
+      {{ venue.name }}
+    </a>
+  </div>
+</div>
+
