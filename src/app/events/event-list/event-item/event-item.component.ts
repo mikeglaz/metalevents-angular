@@ -17,6 +17,6 @@ export class EventItemComponent implements OnInit {
   }
 
   onSelected() {
-    // this.eventService.eventSelected.emit(this.event);
+    this.eventService.eventSelected.emit(this.event);
   }
 }
