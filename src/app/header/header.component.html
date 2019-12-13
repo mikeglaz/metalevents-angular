@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
   <div class="container-fluid">
-    <a href="" class="navbar-brand">Metalevents</a>
+    <a routerLink="/" class="navbar-brand">Metalevents</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -36,6 +36,10 @@
             </a>
             <a ngbDropdownItem routerLink="/events">
               Event List
+            </a>
+            <a ngbDropdownItem
+              [routerLink]="['events', 'new']">
+              New Event
             </a>
           </div>
         </li>

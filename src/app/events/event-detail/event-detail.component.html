@@ -1,5 +1,15 @@
 <div class="row">
   <div class="col-12">
-    <h5>Event Name</h5>
+    <h4>{{ event.name }}</h4>
+    {{ event.description }}
+    <br>
+    {{ event.date | date:'mediumDate' }}
+    <br>
+    {{ event.date | date:'shortTime'}}
+    <br>
+    {{ event.venue }}
+    <br>
+    <button class="btn btn-warning" routerLink="edit">Edit Event</button>
+    <button class="btn btn-danger" (click)="onDeleteEvent()">Delete Event</button>
   </div>
 </div>

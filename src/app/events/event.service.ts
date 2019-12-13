@@ -1,11 +1,13 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+
 import { Event } from './event.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventService {
-  eventSelected = new EventEmitter<Event>();
+  eventsChanged = new Subject<Event[]>();
 
   private events: Event[] = [
     new Event(
@@ -46,9 +48,26 @@ export class EventService {
     )
   ];
 
-  constructor() { }
-
   getEvents(): Event[] {
     return this.events.slice();
+  }
+
+  getEvent(id: number): Event {
+    return this.events[id];
+  }
+
+  newEvent(event: Event) {
+    this.events.push(event);
+    this.eventsChanged.next(this.events.slice());
+  }
+
+  updateEvent(id: number, newEvent: Event) {
+    this.events[id] = newEvent;
+    this.eventsChanged.next(this.events.slice());
+  }
+
+  deleteEvent(id: number) {
+    this.events.splice(id, 1);
+    this.eventsChanged.next(this.events.slice());
   }
 }
