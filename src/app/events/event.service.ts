@@ -33,7 +33,6 @@ export class EventService {
     let eventIndex = this.events.findIndex(event => event.id === id);
 
     this.events[eventIndex] = {...newEvent, id: id};
-    // console.log(this.events);
     this.eventsChanged.next(this.events.slice());
   }
 

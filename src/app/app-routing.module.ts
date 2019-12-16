@@ -3,20 +3,34 @@ import { Routes, RouterModule } from "@angular/router";
 
 import { EventsComponent } from "./events/events.component";
 import { VenuesComponent } from "./venues/venues.component";
-import { EventStartComponent } from './events/event-start/event-start.component';
-import { EventDetailComponent } from './events/event-detail/event-detail.component';
-import { EventEditComponent } from './events/event-edit/event-edit.component';
+import { EventStartComponent } from "./events/event-start/event-start.component";
+import { EventDetailComponent } from "./events/event-detail/event-detail.component";
+import { EventEditComponent } from "./events/event-edit/event-edit.component";
+import { EventResolverService } from "./events/event-resolver.service";
 
 const routes: Routes = [
   // { path: '', redirectTo: '/events', pathMatch: "full" },
 
   { path: "", component: EventsComponent },
-  { path: "events", component: EventsComponent, children: [
-    { path: '', component: EventStartComponent },
-    { path: 'new', component: EventEditComponent },
-    { path: ':id', component: EventDetailComponent },
-    { path: ':id/edit', component: EventEditComponent }
-  ]},
+  {
+    path: "events",
+    component: EventsComponent,
+    children: [
+      { path: "", component: EventStartComponent },
+      { path: "new", component: EventEditComponent },
+      {
+        path: ":id",
+        component: EventDetailComponent,
+        // resolver is for when we reload /events/:id
+        resolve: [EventResolverService]
+      },
+      {
+        path: ":id/edit",
+        component: EventEditComponent,
+        resolve: [EventResolverService]
+      }
+    ]
+  },
   { path: "venues", component: VenuesComponent }
 ];
 

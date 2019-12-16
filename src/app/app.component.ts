@@ -13,6 +13,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     console.log("AppComponent#OnInit");
-    this.dataService.fetchEvents();
+    this.dataService.fetchEvents().subscribe();
   }
 }

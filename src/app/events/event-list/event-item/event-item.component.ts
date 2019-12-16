@@ -11,8 +11,6 @@ import { EventService } from '../../event.service';
 export class EventItemComponent implements OnInit {
   @Input() event: Event;
 
-  constructor(private eventService: EventService){}
-
   ngOnInit() {
   }
 }

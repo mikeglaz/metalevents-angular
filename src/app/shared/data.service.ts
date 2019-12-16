@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { EventService } from '../events/event.service';
+import { tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
 import { Event } from '../events/event.model';
+import { EventService } from '../events/event.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,10 +26,12 @@ export class DataService {
       .subscribe(console.log);
   }
 
-  fetchEvents(): void {
-    this.http.get<Event[]>('http://localhost:3000/events')
-      .subscribe(events => {
-        this.eventService.setEvents(events);
-      })
+  fetchEvents(): Observable<Event[]> {
+    return this.http.get<Event[]>('http://localhost:3000/events')
+      .pipe(
+        tap(events => {
+          this.eventService.setEvents(events);
+        })
+      );
   }
 }
