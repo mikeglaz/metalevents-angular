@@ -9,12 +9,10 @@ import { EventService } from '../../event.service';
   styleUrls: ['./event-item.component.scss']
 })
 export class EventItemComponent implements OnInit {
-  @Input() id: number;
-  event: Event;
+  @Input() event: Event;
 
   constructor(private eventService: EventService){}
 
   ngOnInit() {
-    this.event = this.eventService.getEvent(this.id);
   }
 }

@@ -2,8 +2,8 @@
   <div class="col-12">
     <!-- once we have an id, perhaps [id] could be set to "event.id" -->
     <app-event-item
-      *ngFor="let event of events; let i = index"
-      [id]="i"
+      *ngFor="let event of events"
+      [event]="event"
       ></app-event-item>
   </div>
 </div>

@@ -3,7 +3,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { EventService } from '../event.service';
-import { DataStorageService } from '../../shared/data-storage.service';
+import { DataService } from '../../shared/data.service';
+import { Event } from '../event.model';
 
 @Component({
   selector: 'app-event-edit',
@@ -19,7 +20,7 @@ export class EventEditComponent implements OnInit {
     private route: ActivatedRoute,
     private eventService: EventService,
     private router: Router,
-    private dataStorageService: DataStorageService)
+    private dataService: DataService)
   {}
 
   ngOnInit() {
@@ -34,9 +35,10 @@ export class EventEditComponent implements OnInit {
   onSubmit() {
     if(this.editMode) {
       this.eventService.updateEvent(this.id, this.eventForm.value);
-      this.dataStorageService.saveEvent(this.eventForm.value);
+      this.dataService.updateEvent(this.id, this.eventForm.value);
     } else {
       this.eventService.newEvent(this.eventForm.value);
+      this.dataService.saveEvent(this.eventForm.value);
     }
 
     this.onCancel();

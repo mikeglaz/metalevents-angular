@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from "@angular/router";
 
 import { Event } from "../event.model";
 import { EventService } from "../event.service";
@@ -27,9 +27,9 @@ export class EventDetailComponent implements OnInit {
   }
 
   onDeleteEvent() {
-    if(confirm('Are you sure?')){
+    if (confirm("Are you sure?")) {
       this.eventService.deleteEvent(this.id);
-      this.router.navigate(['/events']);
+      this.router.navigate(["/events"]);
     }
   }
 }

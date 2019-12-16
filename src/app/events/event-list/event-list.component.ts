@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 
 import { Event } from "../event.model";
 import { EventService } from '../event.service';
+import { DataService } from '../../shared/data.service';
 
 @Component({
   selector: "app-event-list",
@@ -11,7 +12,9 @@ import { EventService } from '../event.service';
 export class EventListComponent implements OnInit {
   events: Event[];
 
-  constructor(private eventService: EventService) {}
+  constructor(
+    private eventService: EventService,
+    private dataService: DataService) {}
 
   ngOnInit() {
     this.eventService.eventsChanged.subscribe(

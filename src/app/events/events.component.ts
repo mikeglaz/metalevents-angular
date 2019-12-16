@@ -8,17 +8,10 @@ import { EventService } from './event.service';
   styleUrls: ['./events.component.scss']
 })
 export class EventsComponent implements OnInit {
-  selectedEvent: Event;
-
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
-    // this.eventService.eventSelected.subscribe(
-    //   (event: Event) => {
-    //     this.selectedEvent = event;
-    //     console.log(event);
-    //   }
-    // );
   }
 
 }

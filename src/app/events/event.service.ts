@@ -9,51 +9,19 @@ import { Event } from './event.model';
 export class EventService {
   eventsChanged = new Subject<Event[]>();
 
-  private events: Event[] = [
-    new Event(
-      "Abigor",
-      "Nachthymnen Tour",
-      new Date(2019, 12, 29, 19, 0, 0),
-      "Reggies Rock House"
-    ),
-    new Event(
-      "Ghost",
-      "A Pale Tour Named Death",
-      new Date(2020, 1, 1, 19, 0, 0),
-      "Double Door"
-    ),
-    new Event(
-      "Metallica",
-      "World Tour 2020",
-      new Date(2020, 1, 31, 20, 0, 0),
-      "Vic Theatre"
-    ),
-    new Event(
-      "Arcturus",
-      "Church Burning Tour 2020",
-      new Date(2020, 2, 1, 20, 0, 0),
-      "Cobra Lounge"
-    ),
-    new Event(
-      "Opeth",
-      "Blackwater Park Tour",
-      new Date(2020, 2, 5, 21, 0, 0),
-      "Oak Theatre"
-    ),
-    new Event(
-      "Animals As Leaders",
-      "Tempting Death Tour",
-      new Date(2020, 3, 3, 19, 0, 0),
-      "Aragon Ballroom"
-    )
-  ];
+  private events: Event[] = [];
+
+  setEvents(events: Event[]) {
+    this.events = events;
+    this.eventsChanged.next(this.events.slice());
+  }
 
   getEvents(): Event[] {
     return this.events.slice();
   }
 
   getEvent(id: number): Event {
-    return this.events[id];
+    return this.events.find(event => event.id === id);
   }
 
   newEvent(event: Event) {
@@ -62,7 +30,10 @@ export class EventService {
   }
 
   updateEvent(id: number, newEvent: Event) {
-    this.events[id] = newEvent;
+    let eventIndex = this.events.findIndex(event => event.id === id);
+
+    this.events[eventIndex] = {...newEvent, id: id};
+    // console.log(this.events);
     this.eventsChanged.next(this.events.slice());
   }
 

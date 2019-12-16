@@ -1,12 +1,14 @@
 <div class="list-group">
   <a
-    [routerLink]="['/events', id]"
+    [routerLink]="['/events', event.id]"
     routerLinkActive="active"
     style="cursor: pointer"
     class="list-group-item list-group-item-action">
       {{ event.name }}
       <br>
-      {{ event.date_and_time | date : 'MMM d - h:mm a' }}
+      {{ event.venue }}
+      <br>
+      {{ event.date | date : 'MMM d' }}
   </a>
 </div>
 
