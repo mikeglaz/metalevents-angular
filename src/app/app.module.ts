@@ -14,6 +14,7 @@ import { EventDetailComponent } from './events/event-detail/event-detail.compone
 import { VenuesComponent } from './venues/venues.component';
 import { EventStartComponent } from './events/event-start/event-start.component';
 import { EventEditComponent } from './events/event-edit/event-edit.component';
+import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { EventEditComponent } from './events/event-edit/event-edit.component';
     EventDetailComponent,
     VenuesComponent,
     EventStartComponent,
-    EventEditComponent
+    EventEditComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
