@@ -11,11 +11,10 @@
 <div class="row justify-content-center" *ngIf="!isLoading">
   <div class="col-6">
     <div class="row justify-content-center">
-      <h3 *ngIf="signupMode">Sign Up</h3>
-      <h3 *ngIf="!signupMode">Log In</h3>
+      <h3>Sign Up</h3>
     </div>
-    <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
-      <div class="form-group" *ngIf="signupMode">
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
         <label for="name">Name</label>
         <input
           type="name"
@@ -31,7 +30,6 @@
           formControlName="email"
           class="form-control">
       </div>
-      <!-- <div formGroupName="passwords"> -->
         <div>
         <div class="form-group">
           <label for="password">Password</label>
@@ -41,7 +39,7 @@
             formControlName="password"
             class="form-control">
         </div>
-        <div class="form-group" *ngIf="signupMode">
+        <div class="form-group">
           <label for="confirmedPassword">Password Confirmation</label>
           <input
             type="password"
@@ -53,11 +51,10 @@
       <div>
         <button
           class="btn btn-primary"
-          [disabled]="authForm.invalid">
-          {{ signupMode ? 'Sign Up' : 'Log In'}}
+          [disabled]="signupForm.invalid">
+          Sign Up
         </button>
       </div>
     </form>
-    <p>Form Status: {{ authForm.status }}</p>
   </div>
 </div>

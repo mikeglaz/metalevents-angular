@@ -15,6 +15,9 @@ import { VenuesComponent } from './venues/venues.component';
 import { EventStartComponent } from './events/event-start/event-start.component';
 import { EventEditComponent } from './events/event-edit/event-edit.component';
 import { AuthComponent } from './auth/auth.component';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { AuthComponent } from './auth/auth.component';
     VenuesComponent,
     EventStartComponent,
     EventEditComponent,
-    AuthComponent
+    AuthComponent,
+    LoadingSpinnerComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

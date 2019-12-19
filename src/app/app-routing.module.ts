@@ -8,6 +8,8 @@ import { EventDetailComponent } from "./events/event-detail/event-detail.compone
 import { EventEditComponent } from "./events/event-edit/event-edit.component";
 import { EventResolverService } from "./events/event-resolver.service";
 import { AuthComponent } from './auth/auth.component';
+import { SignupComponent } from './auth/signup/signup.component';
+import { LoginComponent } from './auth/login/login.component';
 
 const routes: Routes = [
   // { path: '', redirectTo: '/events', pathMatch: "full" },
@@ -33,7 +35,8 @@ const routes: Routes = [
     ]
   },
   { path: "venues", component: VenuesComponent },
-  { path: 'auth', component: AuthComponent}
+  { path: 'auth/signup', component: SignupComponent},
+  { path: 'auth/login', component: LoginComponent}
 ];
 
 @NgModule({
