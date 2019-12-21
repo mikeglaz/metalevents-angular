@@ -7,7 +7,7 @@ import { EventStartComponent } from "./events/event-start/event-start.component"
 import { EventDetailComponent } from "./events/event-detail/event-detail.component";
 import { EventEditComponent } from "./events/event-edit/event-edit.component";
 import { EventResolverService } from "./events/event-resolver.service";
-import { AuthComponent } from './auth/auth.component';
+// import { AuthComponent } from './auth/auth.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
 

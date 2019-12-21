@@ -14,7 +14,7 @@ import { EventDetailComponent } from './events/event-detail/event-detail.compone
 import { VenuesComponent } from './venues/venues.component';
 import { EventStartComponent } from './events/event-start/event-start.component';
 import { EventEditComponent } from './events/event-edit/event-edit.component';
-import { AuthComponent } from './auth/auth.component';
+// import { AuthComponent } from './auth/auth.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
@@ -30,7 +30,7 @@ import { SignupComponent } from './auth/signup/signup.component';
     VenuesComponent,
     EventStartComponent,
     EventEditComponent,
-    AuthComponent,
+    // AuthComponent,
     LoadingSpinnerComponent,
     LoginComponent,
     SignupComponent

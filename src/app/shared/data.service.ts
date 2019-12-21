@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 
 import { Event } from '../events/event.model';
 import { EventService } from '../events/event.service';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ import { EventService } from '../events/event.service';
 export class DataService {
   constructor(
     private http: HttpClient,
-    private eventService: EventService) {}
+    private eventService: EventService,
+    private authService: AuthService) {}
 
   saveEvent(event: Event): void {
     // const events = this.eventService.getEvents();
