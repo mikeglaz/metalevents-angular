@@ -29,11 +29,7 @@ export class DataService {
   }
 
   fetchEvents(): Observable<Event[]> {
-    let token = 'abc';
-    return this.http.get<Event[]>('http://localhost:3000/events', {
-
-        headers: new HttpHeaders().set('Authorization', token)
-      })
+    return this.http.get<Event[]>('http://localhost:3000/events')
       .pipe(
         tap(events => {
           this.eventService.setEvents(events);
@@ -41,3 +37,9 @@ export class DataService {
       );
   }
 }
+
+
+    // return this.http.get<Event[]>('http://localhost:3000/events', {
+
+    //     headers: new HttpHeaders().set('Authorization', token)
+    //   })
