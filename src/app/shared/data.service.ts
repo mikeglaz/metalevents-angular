@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -29,7 +29,11 @@ export class DataService {
   }
 
   fetchEvents(): Observable<Event[]> {
-    return this.http.get<Event[]>('http://localhost:3000/events')
+    let token = 'abc';
+    return this.http.get<Event[]>('http://localhost:3000/events', {
+
+        headers: new HttpHeaders().set('Authorization', token)
+      })
       .pipe(
         tap(events => {
           this.eventService.setEvents(events);

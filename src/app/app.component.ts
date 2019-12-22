@@ -12,7 +12,6 @@ export class AppComponent implements OnInit {
   constructor(private dataService: DataService){}
 
   ngOnInit() {
-    console.log("AppComponent#OnInit");
     this.dataService.fetchEvents().subscribe();
   }
 }

@@ -19,6 +19,7 @@ import { AuthService, AuthResponse } from "../auth.service";
 export class SignupComponent implements OnInit {
   isLoading = false;
   error: string = null;
+  message: string = null;
   signupForm: FormGroup;
 
   constructor(
@@ -49,10 +50,12 @@ export class SignupComponent implements OnInit {
 
     this.authService.signup(name, email, password).subscribe(
       (response: AuthResponse) => {
-        console.log(response);
+        this.message = this.error = null;
+        this.message = response.message;
         this.isLoading = false;
       },
       errorMessage => {
+        this.message = this.error = null;
         this.error = errorMessage;
         this.isLoading = false;
       }

@@ -2,13 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormControl,
-  Validators,
-  ValidationErrors
+  Validators
 } from "@angular/forms";
-import { Observable } from 'rxjs';
-import { ActivatedRoute, Params } from '@angular/router';
 
-import { AuthService, AuthResponse } from "../auth.service";
+import { AuthService } from "../auth.service";
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -23,7 +21,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private route: ActivatedRoute) {}
+    private router: Router) {}
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -39,9 +37,9 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
 
     this.authService.login(email, password).subscribe(
-      (response: AuthResponse) => {
-        console.log(response);
+      (response) => {
         this.isLoading = false;
+        this.router.navigate(['/events']);
       },
       errorMessage => {
         this.error = errorMessage;
