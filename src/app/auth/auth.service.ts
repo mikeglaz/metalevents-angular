@@ -5,6 +5,7 @@ import { throwError, BehaviorSubject } from 'rxjs';
 
 import { User } from "./user.model";
 import { DataService } from '../shared/data.service';
+import { Router } from '@angular/router';
 
 export interface AuthResponse {
   token: string;
@@ -23,7 +24,7 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    // private dataService: DataService
+    private router: Router
   ) {}
 
   signup(name: string, email: string, password: string) {
@@ -47,8 +48,33 @@ export class AuthService {
         tap(res => {
           const user = new User(res.id, res.name, res.email, res.token);
           this.user.next(user);
+          localStorage.setItem('userData', JSON.stringify(user));
         })
       );
+  }
+
+  autoLogin() {
+    const userData: {
+      id: number,
+      name: string,
+      email: string,
+      _token: string,
+    } = JSON.parse(localStorage.getItem('userData'));
+
+    if(!userData){
+      return;
+    }
+
+    const loadedUser = new User(userData.id, userData.name, userData.email, userData._token);
+
+
+    this.user.next(loadedUser);
+  }
+
+  logout() {
+    localStorage.removeItem('userData');
+    this.user.next(null);
+    this.router.navigate(['/auth/login']);
   }
 
   private handleError(errorRes: HttpErrorResponse) {

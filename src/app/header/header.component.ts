@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
+import { User } from '../auth/user.model';
 
 @Component({
   selector: 'app-header',
@@ -11,14 +12,19 @@ import { Subscription } from 'rxjs';
 export class HeaderComponent implements OnInit, OnDestroy {
   collapsed = true;
   private userSubscription: Subscription;
-  user: boolean = false;
+  user: User;
 
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
     this.userSubscription = this.authService.user.subscribe(user => {
-      this.user = !!user;
+      // console.log(user);
+      this.user = user;
     });
+  }
+
+  onLogout() {
+    this.authService.logout();
   }
 
   ngOnDestroy() {

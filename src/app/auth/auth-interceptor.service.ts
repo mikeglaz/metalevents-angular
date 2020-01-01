@@ -8,6 +8,7 @@ import {
 
 import { AuthService } from "./auth.service";
 import { take, exhaustMap } from 'rxjs/operators';
+import { HttpParams } from '@angular/common/http';
 
 
 @Injectable()
@@ -19,14 +20,14 @@ export class AuthInterceptorService implements HttpInterceptor {
     return this.authService.user.pipe(
       take(1),
       exhaustMap(user => {
-        // const modifiedReq = req.clone({ headers: new HttpHeaders().set('Authorization', user.token)});
+        if(user){
+          const authReq = req.clone({
+            headers: new HttpHeaders().set('Authorization', user.token)
+          });
 
+          return next.handle(authReq);
+        }
 
-
-        // const authReq = req.clone({ setHeaders: { Authorization: user.token }});
-
-
-        // return next.handle(authReq);
         return next.handle(req);
       }))
   }

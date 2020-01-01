@@ -56,7 +56,7 @@
             style="cursor: pointer"
             ngbDropdownToggle
           >
-            Mike Glaz
+            {{ user.name }}
           </a>
 
           <div ngbDropdownMenu class="dropdown-menu">
@@ -64,8 +64,10 @@
               [routerLink]="['events', 'new']">
               Profile
             </a>
-            <a ngbDropdownItem
-              [routerLink]="['events', 'new']">
+            <a
+              style="cursor: pointer"
+              ngbDropdownItem
+              (click)="onLogout()">
               Log Out
             </a>
           </div>
