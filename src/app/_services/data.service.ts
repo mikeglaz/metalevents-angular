@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
-import { Event } from '../events/event.model';
-import { EventService } from '../events/event.service';
-import { AuthService } from '../auth/auth.service';
+import { Event } from '../_models/event.model';
+import { EventService } from './event.service';
+import { AuthService } from './auth.service';
+
 
 @Injectable({
   providedIn: 'root'

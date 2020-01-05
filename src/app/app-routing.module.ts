@@ -10,7 +10,7 @@ import { EventResolverService } from "./events/event-resolver.service";
 // import { AuthComponent } from './auth/auth.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
-import { AuthGuard } from './auth/auth.guard';
+import { AuthGuard } from './_helpers/auth.guard';
 
 const routes: Routes = [
   // { path: '', redirectTo: '/events', pathMatch: "full" },

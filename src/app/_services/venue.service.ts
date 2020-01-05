@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 
-import { Venue } from "./venue.model";
+import { Venue } from '../_models/venue.model';
+
 
 @Injectable({
   providedIn: "root"

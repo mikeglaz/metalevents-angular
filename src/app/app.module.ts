@@ -18,7 +18,7 @@ import { EventEditComponent } from "./events/event-edit/event-edit.component";
 import { LoadingSpinnerComponent } from "./shared/loading-spinner/loading-spinner.component";
 import { LoginComponent } from "./auth/login/login.component";
 import { SignupComponent } from "./auth/signup/signup.component";
-import { AuthInterceptorService } from "./auth/auth-interceptor.service";
+import { AuthInterceptorService } from './_helpers/auth-interceptor.service';
 
 @NgModule({
   declarations: [

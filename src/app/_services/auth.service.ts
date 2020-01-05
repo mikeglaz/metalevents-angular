@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { catchError, tap } from "rxjs/operators";
-import { throwError, BehaviorSubject } from 'rxjs';
-
-import { User } from "./user.model";
-import { DataService } from '../shared/data.service';
+import { throwError, BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
+
+import { User } from '../_models/user.model';
+
 
 export interface AuthResponse {
   token: string;
@@ -20,12 +20,20 @@ export interface AuthResponse {
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
-  user = new BehaviorSubject<User>(null);
+  private currentUserSubject: BehaviorSubject<User>;
+  public currentUser: Observable<User>;
 
   constructor(
     private http: HttpClient,
     private router: Router
-  ) {}
+  ) {
+    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
+
+  public get currentUserValue(): User {
+    return this.currentUserSubject.value;
+  }
 
   signup(name: string, email: string, password: string) {
     return this.http
@@ -47,8 +55,8 @@ export class AuthService {
         catchError(this.handleError),
         tap(res => {
           const user = new User(res.id, res.name, res.email, res.token);
-          this.user.next(user);
-          localStorage.setItem('userData', JSON.stringify(user));
+          this.currentUserSubject.next(user);
+          localStorage.setItem('currentUser', JSON.stringify(user));
         })
       );
   }
@@ -59,7 +67,9 @@ export class AuthService {
       name: string,
       email: string,
       _token: string,
-    } = JSON.parse(localStorage.getItem('userData'));
+    } = JSON.parse(localStorage.getItem('currentUser'));
+
+
 
     if(!userData){
       return;
@@ -67,13 +77,12 @@ export class AuthService {
 
     const loadedUser = new User(userData.id, userData.name, userData.email, userData._token);
 
-
-    this.user.next(loadedUser);
+    this.currentUserSubject.next(loadedUser);
   }
 
   logout() {
-    localStorage.removeItem('userData');
-    this.user.next(null);
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
     this.router.navigate(['/auth/login']);
   }
 

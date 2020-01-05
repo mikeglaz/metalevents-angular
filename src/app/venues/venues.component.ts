@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Venue } from './venue.model';
-import { VenueService } from './venue.service';
+
+import { Venue } from '../_models/venue.model';
+import { VenueService } from '../_services/venue.service';
+
 
 @Component({
   selector: 'app-venues',

@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { EventService } from '../event.service';
-import { DataService } from '../../shared/data.service';
-import { Event } from '../event.model';
+import { EventService } from '../../_services/event.service';
+import { DataService } from '../../_services/data.service';
+
+
 
 @Component({
   selector: 'app-event-edit',

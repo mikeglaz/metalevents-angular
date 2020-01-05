@@ -8,7 +8,7 @@ import {
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Params } from '@angular/router';
 
-import { AuthService, AuthResponse } from "../auth.service";
+import { AuthService, AuthResponse } from '../../_services/auth.service';
 
 
 @Component({
