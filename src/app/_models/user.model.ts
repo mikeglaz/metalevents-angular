@@ -1,18 +1,15 @@
+import { Role } from "./role";
+
 export class User {
   constructor(
     public id: number,
     public name: string,
     public email: string,
-    private _token: string,
-    // private _tokenExpirationDate: Date
+    public role: Role,
+    private _token?: string
   ) {}
 
   get token() {
-    // if (!this._tokenExpirationDate || new Date() > this._tokenExpirationDate) {
-    //   // token expired
-    //   return null;
-    // }
-
     return this._token;
   }
 }

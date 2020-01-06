@@ -54,7 +54,8 @@ export class AuthService {
       .pipe(
         catchError(this.handleError),
         tap(res => {
-          const user = new User(res.id, res.name, res.email, res.token);
+          console.log(res);
+          const user = new User(res.id, res.name, res.email, res.role, res.token);
           this.currentUserSubject.next(user);
           localStorage.setItem('currentUser', JSON.stringify(user));
         })

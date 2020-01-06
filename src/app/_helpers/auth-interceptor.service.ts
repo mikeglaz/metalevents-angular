@@ -34,7 +34,7 @@ export class AuthInterceptorService implements HttpInterceptor {
 
     //   }))
 
-    let currentUser = this.authService.currentUserValue;
+    const currentUser = this.authService.currentUserValue;
 
     if(currentUser && currentUser.token) {
       req = req.clone({
