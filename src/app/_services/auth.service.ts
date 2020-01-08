@@ -5,10 +5,12 @@ import { throwError, BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { User } from '../_models/user.model';
+import { Role } from '../_models/role';
 
 
 export interface AuthResponse {
   token: string;
+  role?: Role
   id?: number;
   name?: string;
   message?: string;
@@ -20,19 +22,18 @@ export interface AuthResponse {
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
-  private currentUserSubject: BehaviorSubject<User>;
-  public currentUser: Observable<User>;
+  currentUser: BehaviorSubject<User>;
+  // public currentUser: Observable<User>;
 
   constructor(
     private http: HttpClient,
     private router: Router
   ) {
-    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
-    this.currentUser = this.currentUserSubject.asObservable();
+    this.currentUser = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
   }
 
   public get currentUserValue(): User {
-    return this.currentUserSubject.value;
+    return this.currentUser.value;
   }
 
   signup(name: string, email: string, password: string) {
@@ -54,9 +55,8 @@ export class AuthService {
       .pipe(
         catchError(this.handleError),
         tap(res => {
-          console.log(res);
           const user = new User(res.id, res.name, res.email, res.role, res.token);
-          this.currentUserSubject.next(user);
+          this.currentUser.next(user);
           localStorage.setItem('currentUser', JSON.stringify(user));
         })
       );
@@ -67,6 +67,7 @@ export class AuthService {
       id: number,
       name: string,
       email: string,
+      role: Role,
       _token: string,
     } = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -76,14 +77,14 @@ export class AuthService {
       return;
     }
 
-    const loadedUser = new User(userData.id, userData.name, userData.email, userData._token);
+    const loadedUser = new User(userData.id, userData.name, userData.email, userData.role, userData._token);
 
-    this.currentUserSubject.next(loadedUser);
+    this.currentUser.next(loadedUser);
   }
 
   logout() {
     localStorage.removeItem('currentUser');
-    this.currentUserSubject.next(null);
+    this.currentUser.next(null);
     this.router.navigate(['/auth/login']);
   }
 

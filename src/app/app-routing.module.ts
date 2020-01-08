@@ -14,9 +14,7 @@ import { AuthGuard } from './_helpers/auth.guard';
 import { Role } from './_models/role';
 
 const routes: Routes = [
-  // { path: '', redirectTo: '/events', pathMatch: "full" },
-
-  { path: "", component: EventsComponent },
+  { path: '', redirectTo: '/events', pathMatch: "full" },
   {
     path: "events",
     component: EventsComponent,
@@ -34,7 +32,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: EventEditComponent,
         resolve: [EventResolverService],
-        data: { roles: [Role.Admin] }
+        data: { admin: true }
       }
     ]
   },

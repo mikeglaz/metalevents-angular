@@ -18,7 +18,6 @@ export class DataService {
     private authService: AuthService) {}
 
   saveEvent(event: Event): void {
-    // const events = this.eventService.getEvents();
     this.http.post('http://localhost:3000/events', { event: event })
       .subscribe(console.log);
   }
@@ -38,8 +37,3 @@ export class DataService {
   }
 }
 
-
-    // return this.http.get<Event[]>('http://localhost:3000/events', {
-
-    //     headers: new HttpHeaders().set('Authorization', token)
-    //   })
