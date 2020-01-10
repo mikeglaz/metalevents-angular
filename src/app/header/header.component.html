@@ -46,7 +46,7 @@
           <a routerLink="/venues" class="nav-link">Venues</a>
         </li>
       </ul>
-      <ul class="navbar-nav" *ngIf="user">
+      <ul class="navbar-nav" *ngIf="loggedInUser">
         <li
           class="nav-item"
           routerLinkActive="active"
@@ -56,7 +56,7 @@
             style="cursor: pointer"
             ngbDropdownToggle
           >
-            {{ user.name }}
+            User Name
           </a>
 
           <div ngbDropdownMenu class="dropdown-menu">
@@ -73,7 +73,7 @@
           </div>
         </li>
       </ul>
-      <ul class="navbar-nav" *ngIf="!user">
+      <ul class="navbar-nav" *ngIf="!loggedInUser">
         <li class="nav-item">
           <a
             routerLink="/auth/login"

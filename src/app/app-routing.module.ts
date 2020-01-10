@@ -31,7 +31,7 @@ const routes: Routes = [
         path: ":id/edit",
         canActivate: [AuthGuard],
         component: EventEditComponent,
-        resolve: [EventResolverService],
+        // resolve: [EventResolverService],
         data: { admin: true }
       }
     ]

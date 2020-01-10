@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { JwtModule } from "@auth0/angular-jwt";
 
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
@@ -18,7 +19,8 @@ import { EventEditComponent } from "./events/event-edit/event-edit.component";
 import { LoadingSpinnerComponent } from "./shared/loading-spinner/loading-spinner.component";
 import { LoginComponent } from "./auth/login/login.component";
 import { SignupComponent } from "./auth/signup/signup.component";
-import { AuthInterceptorService } from './_helpers/auth-interceptor.service';
+import { AuthInterceptor } from './_helpers/auth-interceptor';
+
 
 @NgModule({
   declarations: [
@@ -31,7 +33,6 @@ import { AuthInterceptorService } from './_helpers/auth-interceptor.service';
     VenuesComponent,
     EventStartComponent,
     EventEditComponent,
-    // AuthComponent,
     LoadingSpinnerComponent,
     LoginComponent,
     SignupComponent
@@ -46,7 +47,7 @@ import { AuthInterceptorService } from './_helpers/auth-interceptor.service';
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptorService,
+    useClass: AuthInterceptor,
     multi: true
   }],
   bootstrap: [AppComponent]
