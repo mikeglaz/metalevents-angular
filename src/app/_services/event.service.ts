@@ -60,6 +60,14 @@ export class EventService {
       .post<Event>("http://localhost:3000/events", { event: event });
   }
 
+  // reloading eveints/:id does not work - with the subscription here
+
+  // fetchEvents(): void {
+  //   this.http.get<Event[]>("http://localhost:3000/events").subscribe(events => {
+  //     this.setEvents(events);
+  //   });
+  // }
+
   fetchEvents(): Observable<Event[]> {
     return this.http.get<Event[]>("http://localhost:3000/events").pipe(
       tap(events => {

@@ -71,10 +71,12 @@ export class AuthService {
       if(this.token) {
         const decodedToken: User = this.jwtHelper.decodeToken(this.token);
 
-        this.setAuthTimer(decodedToken.exp);
-
         const now = new Date();
-        const expirationDate = new Date(now.getTime() + decodedToken.exp * 1000);
+        const expirationDate = new Date(decodedToken.exp * 1000);
+        console.log(expirationDate);
+        const duration = expirationDate.getTime() - now.getTime();
+
+        this.setAuthTimer(duration);
 
         this.saveAuthData(this.token, expirationDate);
         this.setCurrentUser();
@@ -123,7 +125,7 @@ export class AuthService {
   private setCurrentUser() {
     if(this.token){
       const userData: User = this.jwtHelper.decodeToken(this.token);
-      const user = new User(userData.id, userData.name, userData.email, userData.admin);
+      const user = new User(userData.id, userData.name, userData.email, userData.admin, userData.exp);
       this.currentUserListener.next(user);
     }
   }
@@ -134,10 +136,9 @@ export class AuthService {
   }
 
   private setAuthTimer(duration: number) {
-    console.log("Setting timer: " + duration);
     this.tokenTimer = setTimeout(() => {
       this.logout();
-    }, duration * 1000);
+    }, duration);
   }
 
   autoLogin() {

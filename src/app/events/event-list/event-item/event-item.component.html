@@ -6,9 +6,7 @@
     class="list-group-item list-group-item-action">
       {{ event.name }}
       <br>
-      {{ event.venue }}
-      <br>
-      {{ event.date | date : 'MMM d' }}
+      {{ event.date | date : 'MMM d, y' }}
   </a>
 </div>
 

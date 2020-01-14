@@ -7,7 +7,7 @@ export class User {
     public name: string,
     public email: string,
     public admin: boolean,
-    public exp?: number
+    public exp: number
     // public jwtHelper: JwtHelperService,
     // private _token?: string,
   ) {}
