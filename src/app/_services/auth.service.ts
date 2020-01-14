@@ -71,10 +71,10 @@ export class AuthService {
       if(this.token) {
         const decodedToken: User = this.jwtHelper.decodeToken(this.token);
 
-        this.setAuthTimer(decodedToken.expiresIn);
+        this.setAuthTimer(decodedToken.exp);
 
         const now = new Date();
-        const expirationDate = new Date(now.getTime() + decodedToken.expiresIn * 1000);
+        const expirationDate = new Date(now.getTime() + decodedToken.exp * 1000);
 
         this.saveAuthData(this.token, expirationDate);
         this.setCurrentUser();

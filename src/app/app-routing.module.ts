@@ -13,30 +13,33 @@ import { LoginComponent } from './auth/login/login.component';
 import { AuthGuard } from './_helpers/auth.guard';
 import { Role } from './_models/role';
 
-const routes: Routes = [
-  { path: '', redirectTo: '/events', pathMatch: "full" },
-  {
-    path: "events",
-    component: EventsComponent,
-    resolve: [EventResolverService],
-    children: [
-      { path: "", component: EventStartComponent },
-      { path: "new", component: EventEditComponent },
+    const routes: Routes = [
+      { path: '', redirectTo: '/events', pathMatch: "full" },
       {
-        path: ":id",
-        component: EventDetailComponent,
-        // resolver is for when we reload /events/:id
-        resolve: [EventResolverService]
+        path: "events",
+        component: EventsComponent,
+        resolve: [EventResolverService],
+        children: [
+          { path: "", component: EventStartComponent },
+          {
+            path: "new",
+            component: EventEditComponent,
+            canActivate: [AuthGuard] },
+          {
+            path: ":id",
+            component: EventDetailComponent,
+            // resolver is for when we reload /events/:id
+            resolve: [EventResolverService]
+          },
+          {
+            path: ":id/edit",
+            canActivate: [AuthGuard],
+            component: EventEditComponent,
+            // resolve: [EventResolverService],
+            data: { expectedRole: 'admin' }
+          }
+        ]
       },
-      {
-        path: ":id/edit",
-        canActivate: [AuthGuard],
-        component: EventEditComponent,
-        // resolve: [EventResolverService],
-        data: { expectedRole: 'admin' }
-      }
-    ]
-  },
   { path: "venues", component: VenuesComponent },
   { path: 'auth/signup', component: SignupComponent},
   { path: 'auth/login', component: LoginComponent}

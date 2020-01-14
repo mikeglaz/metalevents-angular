@@ -36,7 +36,8 @@
             <a ngbDropdownItem routerLink="/events">
               Event List
             </a>
-            <a ngbDropdownItem
+            <a *ngIf="currentUser"
+              ngbDropdownItem
               [routerLink]="['events', 'new']">
               New Event
             </a>
