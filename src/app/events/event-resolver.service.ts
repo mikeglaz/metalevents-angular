@@ -16,7 +16,7 @@ export class EventResolverService implements Resolve<Event[]> {
     const events = this.eventService.getEvents();
 
     if(events.length === 0){
-      return this.dataService.fetchEvents();
+      return this.eventService.fetchEvents();
     } else {
       return events;
     }

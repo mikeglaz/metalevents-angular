@@ -9,7 +9,10 @@
     <br>
     {{ event.venue }}
     <br>
-    <button class="btn btn-warning" routerLink="edit">Edit Event</button>
-    <button class="btn btn-danger" (click)="onDeleteEvent()">Delete Event</button>
+    <div *ngIf="authorized()">
+      <button class="btn btn-warning" routerLink="edit">Edit Event</button>
+      <button class="btn btn-danger" (click)="onDeleteEvent()">Delete Event</button>
+    </div>
+
   </div>
 </div>

@@ -27,13 +27,13 @@ export class DataService {
       .subscribe(console.log);
   }
 
-  fetchEvents(): Observable<Event[]> {
-    return this.http.get<Event[]>('http://localhost:3000/events')
-      .pipe(
-        tap(events => {
-          this.eventService.setEvents(events);
-        })
-      );
-  }
+  // fetchEvents(): Observable<Event[]> {
+  //   return this.http.get<Event[]>('http://localhost:3000/events')
+  //     .pipe(
+  //       tap(events => {
+  //         this.eventService.setEvents(events);
+  //       })
+  //     );
+  // }
 }
 

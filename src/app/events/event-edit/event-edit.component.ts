@@ -36,10 +36,10 @@ export class EventEditComponent implements OnInit {
   onSubmit() {
     if(this.editMode) {
       this.eventService.updateEvent(this.id, this.eventForm.value);
-      this.dataService.updateEvent(this.id, this.eventForm.value);
+      // this.dataService.updateEvent(this.id, this.eventForm.value);
     } else {
       this.eventService.newEvent(this.eventForm.value);
-      this.dataService.saveEvent(this.eventForm.value);
+      // this.dataService.saveEvent(this.eventForm.value);
     }
 
     this.onCancel();

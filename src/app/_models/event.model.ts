@@ -4,5 +4,6 @@ export class Event {
     public description: string,
     public date: Date,
     public venue: string,
-    public id?: number) {}
+    public user_id: number,
+    public id: number) {}
 }

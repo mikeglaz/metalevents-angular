@@ -18,6 +18,7 @@ const routes: Routes = [
   {
     path: "events",
     component: EventsComponent,
+    resolve: [EventResolverService],
     children: [
       { path: "", component: EventStartComponent },
       { path: "new", component: EventEditComponent },
@@ -32,7 +33,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: EventEditComponent,
         // resolve: [EventResolverService],
-        data: { admin: true }
+        data: { expectedRole: 'admin' }
       }
     ]
   },

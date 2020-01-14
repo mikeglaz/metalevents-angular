@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 
-import { DataService } from './_services/data.service';
 import { AuthService } from './_services/auth.service';
+import { EventService } from './_services/event.service';
 
 
 @Component({
@@ -13,12 +13,11 @@ export class AppComponent implements OnInit {
   title = "metalevents";
 
   constructor(
-    private dataService: DataService,
+    private eventService: EventService,
     private authService: AuthService
   ) {}
 
   ngOnInit() {
     this.authService.autoLogin();
-    this.dataService.fetchEvents().subscribe();
   }
 }

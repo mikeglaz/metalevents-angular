@@ -19,27 +19,28 @@ export interface AuthResponse {
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
-  // currentUser: BehaviorSubject<User>;
+  private currentUserListener: BehaviorSubject<User>;
+  private jwtHelper: JwtHelperService;
+
   // public currentUser: Observable<User>;
 
   private token: string = null;
   // private isAuthenticated: boolean = false;
-  private authStatusListener = new BehaviorSubject<boolean>(null);
+  // private authStatusListener = new BehaviorSubject<boolean>(null);
   private tokenTimer: any;
 
   constructor(
     private http: HttpClient,
     private router: Router
   ) {
-    // this.currentUser = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUserListener = new BehaviorSubject<User>(null);
+    // this.currentUserListener = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+
+    this.jwtHelper = new JwtHelperService();
   }
 
   getToken() {
     return this.token;
-  }
-
-  getAuthStatusListener() {
-    return this.authStatusListener.asObservable();
   }
 
   // getIsAuthenticated() {
@@ -61,51 +62,26 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-    this.http.post<{token: string}>("http://localhost:3000/login", {
+    return this.http.post<{token: string}>("http://localhost:3000/login", {
       email,
       password
-    }).subscribe(response => {
+    }).pipe(tap(response => {
       this.token = response.token;
 
       if(this.token) {
-        const jwtHelper = new JwtHelperService();
-        const decodedToken = jwtHelper.decodeToken(this.token);
-
+        const decodedToken: User = this.jwtHelper.decodeToken(this.token);
 
         this.setAuthTimer(decodedToken.expiresIn);
 
-        // jwtHelper.isTokenExpired(this.token);
-
-        // this.isAuthenticated = true;
-        this.authStatusListener.next(true);
         const now = new Date();
         const expirationDate = new Date(now.getTime() + decodedToken.expiresIn * 1000);
+
         this.saveAuthData(this.token, expirationDate);
+        this.setCurrentUser();
+
         this.router.navigate(['/events']);
       }
-    })
-
-    return this.http
-      .post<{token: string}>("http://localhost:3000/login", {
-        email,
-        password
-      })
-      .pipe(
-        catchError(this.handleError),
-        tap(response => {
-          this.token = response.token;
-          this.authStatusListener.next(true);
-          // const helper = new JwtHelperService();
-          // const decodedToken = helper.decodeToken(res.token);
-          // const user = new User(res.id, res.name, res.email, decodedToken.admin, res.token);
-
-          // console.log(res);
-          // console.log(decodedToken);
-
-          // this.currentUser.next(user);
-          // localStorage.setItem('currentUser', JSON.stringify(user));
-        })
-      );
+    }));
   }
 
   // isLoggedIn() {
@@ -132,6 +108,8 @@ export class AuthService {
     const token = localStorage.getItem('token');
     const expirationDate = localStorage.getItem('expirationDate');
 
+
+
     if(!token || !expirationDate) {
       return;
     }
@@ -140,6 +118,19 @@ export class AuthService {
       token: token,
       expirationDate: new Date(expirationDate)
     }
+  }
+
+  private setCurrentUser() {
+    if(this.token){
+      const userData: User = this.jwtHelper.decodeToken(this.token);
+      const user = new User(userData.id, userData.name, userData.email, userData.admin);
+      this.currentUserListener.next(user);
+    }
+  }
+
+  getCurrentUser() {
+    return this.currentUserListener.asObservable();
+    // return this.currentUserListener.value;
   }
 
   private setAuthTimer(duration: number) {
@@ -168,9 +159,9 @@ export class AuthService {
 
     if(expiresIn > 0) {
       this.token = authData.token;
-      // this.isAuthenticated = true;
+
       this.setAuthTimer(expiresIn / 1000);
-      this.authStatusListener.next(true);
+      this.setCurrentUser();
     }
 
 
@@ -186,7 +177,7 @@ export class AuthService {
     // this.currentUser.next(null);
     this.token = null;
     // this.isAuthenticated = false;
-    this.authStatusListener.next(false);
+    this.currentUserListener.next(null);
     this.router.navigate(['/auth/login']);
   }
 

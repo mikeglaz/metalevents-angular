@@ -23,6 +23,7 @@ export class EventListComponent implements OnInit {
         this.events = events;
       }
     )
+
     this.events = this.eventService.getEvents();
   }
 }

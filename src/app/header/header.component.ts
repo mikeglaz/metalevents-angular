@@ -12,9 +12,8 @@ import { AuthService } from '../_services/auth.service';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   collapsed = true;
-  private authStatusSubscription: Subscription;
-
-  loggedInUser = false;
+  private currentUserSubscription: Subscription;
+  currentUser: User = null;
 
   constructor(private authService: AuthService) {}
 
@@ -24,8 +23,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     //   this.loggedInUser = currentUser;
     // });
 
-    this.authStatusSubscription = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
-      this.loggedInUser = isAuthenticated;
+    this.currentUserSubscription = this.authService.getCurrentUser().subscribe(user => {
+      this.currentUser = user;
     });
   }
 
@@ -34,6 +33,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.authStatusSubscription.unsubscribe();
+    this.currentUserSubscription.unsubscribe();
   }
 }

@@ -7,15 +7,16 @@ export class User {
     public name: string,
     public email: string,
     public admin: boolean,
-    public jwtHelper: JwtHelperService,
-    private _token?: string,
+    public expiresIn?: number
+    // public jwtHelper: JwtHelperService,
+    // private _token?: string,
   ) {}
 
-  get token() {
-    if(this.jwtHelper.isTokenExpired()) {
-      return null;
-    }
+  // get token() {
+  //   if(this.jwtHelper.isTokenExpired()) {
+  //     return null;
+  //   }
 
-    return this._token;
-  }
+  //   return this._token;
+  // }
 }
