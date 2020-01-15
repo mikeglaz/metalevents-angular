@@ -13,7 +13,6 @@ export class AppComponent implements OnInit {
   title = "metalevents";
 
   constructor(
-    private eventService: EventService,
     private authService: AuthService
   ) {}
 

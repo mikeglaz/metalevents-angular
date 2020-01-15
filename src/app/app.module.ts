@@ -4,6 +4,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { JwtModule } from "@auth0/angular-jwt";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
@@ -20,6 +21,8 @@ import { LoadingSpinnerComponent } from "./shared/loading-spinner/loading-spinne
 import { LoginComponent } from "./auth/login/login.component";
 import { SignupComponent } from "./auth/signup/signup.component";
 import { AuthInterceptor } from './_helpers/auth-interceptor';
+import { VenueListComponent } from './venues/venue-list/venue-list.component';
+import { VenueItemComponent } from './venues/venue-list/venue-item/venue-item.component';
 
 
 @NgModule({
@@ -35,15 +38,18 @@ import { AuthInterceptor } from './_helpers/auth-interceptor';
     EventEditComponent,
     LoadingSpinnerComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    VenueListComponent,
+    VenueItemComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     ReactiveFormsModule,
-    FormsModule,
-    HttpClientModule
+    // FormsModule,
+    HttpClientModule,
+    FontAwesomeModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

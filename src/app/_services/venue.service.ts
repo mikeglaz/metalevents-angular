@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { AuthService } from './auth.service';
 import { Venue } from "../_models/venue.model";
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: "root"
@@ -17,8 +18,12 @@ export class VenueService {
     return this.venues.slice();
   }
 
-  fetchVenues() {
-    this.http.get<Venue[]>("http://localhost:3000/venues");
+  fetchVenues(): Observable<Venue[]> {
+    return this.http.get<Venue[]>("http://localhost:3000/venues").pipe(
+      tap(venues => {
+        this.venues = venues;
+      })
+    )
   }
 }
 

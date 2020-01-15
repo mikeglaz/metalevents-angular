@@ -6,12 +6,12 @@ import { VenuesComponent } from "./venues/venues.component";
 import { EventStartComponent } from "./events/event-start/event-start.component";
 import { EventDetailComponent } from "./events/event-detail/event-detail.component";
 import { EventEditComponent } from "./events/event-edit/event-edit.component";
-import { EventResolverService } from "./events/event-resolver.service";
-// import { AuthComponent } from './auth/auth.component';
+import { EventResolverService } from "./_services/event-resolver.service";
 import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
 import { AuthGuard } from './_helpers/auth.guard';
 import { Role } from './_models/role';
+import { VenueResolverService } from './_services/venue-resolver.service';
 
     const routes: Routes = [
       { path: '', redirectTo: '/events', pathMatch: "full" },
@@ -40,7 +40,10 @@ import { Role } from './_models/role';
           }
         ]
       },
-  { path: "venues", component: VenuesComponent },
+  {
+    path: "venues",
+    component: VenuesComponent,
+    resolve: [VenueResolverService] },
   { path: 'auth/signup', component: SignupComponent},
   { path: 'auth/login', component: LoginComponent}
 ];

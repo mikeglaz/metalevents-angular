@@ -6,11 +6,9 @@ import { DataService } from '../_services/data.service';
 import { EventService } from '../_services/event.service';
 
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class EventResolverService implements Resolve<Event[]> {
-  constructor(private dataService: DataService, private eventService: EventService){}
+  constructor(private eventService: EventService){}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot){
     const events = this.eventService.getEvents();
