@@ -30,7 +30,7 @@ import { VenueDetailComponent } from './venues/venue-detail/venue-detail.compone
             path: ":id",
             component: EventDetailComponent,
             // resolver is for when we reload /events/:id
-            resolve: [EventResolverService]
+            resolve: [EventResolverService, VenueResolverService]
           },
           {
             path: ":id/edit",
@@ -49,7 +49,7 @@ import { VenueDetailComponent } from './venues/venue-detail/venue-detail.compone
       {
         path: ":id",
         component: VenueDetailComponent,
-        resolve: [VenueResolverService]
+        resolve: [VenueResolverService, EventResolverService]
       },
     ]
   },

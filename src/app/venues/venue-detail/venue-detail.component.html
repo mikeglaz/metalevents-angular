@@ -1,16 +1,21 @@
+
+<h4>
+  {{ venue.name }} <a [href]="venue.url" target="_blank"><fa-icon [icon]="extLinkIcon"></fa-icon></a>
+</h4>
+{{ venue.address }}
+<br>
+{{ venue.city }}, {{ venue.state }}
+<br>
+<div *ngIf="false">
+  <button class="btn btn-warning" routerLink="edit">Edit Venue</button>
+  <button class="btn btn-danger" (click)="onDeleteEvent()">Delete Venue</button>
+</div>
+<br>
+<br>
+<h4>Upcoming Events</h4>
 <div class="row">
   <div class="col-12">
-    <h4>
-      {{ venue.name }} <a [href]="venue.url" target="_blank"><fa-icon [icon]="extLinkIcon"></fa-icon></a>
-    </h4>
-    {{ venue.address }}
-    <br>
-    {{ venue.city }}, {{ venue.state }}
-    <br>
-    <div *ngIf="true">
-      <button class="btn btn-warning" routerLink="edit">Edit Venue</button>
-      <button class="btn btn-danger" (click)="onDeleteEvent()">Delete Venue</button>
-    </div>
-
+    <app-event-list></app-event-list>
   </div>
 </div>
+

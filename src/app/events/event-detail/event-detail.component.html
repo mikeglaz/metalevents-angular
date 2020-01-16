@@ -7,7 +7,7 @@
     <br>
     {{ event.date | date:'shortTime'}}
     <br>
-    {{ event.venue }}
+    <a [routerLink]="['/venues', venue.id]">{{ venue.name }}</a>
     <br>
     <div *ngIf="authorized()">
       <button class="btn btn-warning" routerLink="edit">Edit Event</button>

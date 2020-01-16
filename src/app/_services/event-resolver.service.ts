@@ -4,11 +4,14 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/r
 import { Event } from '../_models/event.model';
 import { DataService } from '../_services/data.service';
 import { EventService } from '../_services/event.service';
+import { VenueService } from './venue.service';
 
 
 @Injectable({ providedIn: 'root' })
 export class EventResolverService implements Resolve<Event[]> {
-  constructor(private eventService: EventService){}
+  constructor(
+    private eventService: EventService,
+    private venueService: VenueService){}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot){
     const events = this.eventService.getEvents();
