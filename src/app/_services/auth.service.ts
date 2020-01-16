@@ -73,7 +73,6 @@ export class AuthService {
 
         const now = new Date();
         const expirationDate = new Date(decodedToken.exp * 1000);
-        console.log(expirationDate);
         const duration = expirationDate.getTime() - now.getTime();
 
         this.setAuthTimer(duration);
@@ -98,7 +97,7 @@ export class AuthService {
 
   private saveAuthData(token: string, expirationDate: Date) {
     localStorage.setItem('token', token);
-    localStorage.setItem('expirationDate', expirationDate.toISOString());
+    localStorage.setItem('expirationDate', expirationDate.toUTCString());
   }
 
   private clearAuthData() {
@@ -109,8 +108,6 @@ export class AuthService {
   private getAuthData() {
     const token = localStorage.getItem('token');
     const expirationDate = localStorage.getItem('expirationDate');
-
-
 
     if(!token || !expirationDate) {
       return;
@@ -161,7 +158,7 @@ export class AuthService {
     if(expiresIn > 0) {
       this.token = authData.token;
 
-      this.setAuthTimer(expiresIn / 1000);
+      this.setAuthTimer(expiresIn);
       this.setCurrentUser();
     }
 

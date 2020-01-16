@@ -30,11 +30,11 @@
           </a>
 
           <div ngbDropdownMenu class="dropdown-menu">
+            <a ngbDropdownItem routerLink="/events">
+              Events
+            </a>
             <a ngbDropdownItem href="#">
               Event Calendar
-            </a>
-            <a ngbDropdownItem routerLink="/events">
-              Event List
             </a>
             <a *ngIf="currentUser"
               ngbDropdownItem
@@ -43,7 +43,35 @@
             </a>
           </div>
         </li>
-        <li class="nav-item" routerLinkActive="active">
+        <li
+          *ngIf="currentUser?.admin"
+          class="nav-item"
+          routerLinkActive="active"
+          ngbDropdown>
+          <a
+            class="nav-link"
+            style="cursor: pointer"
+            ngbDropdownToggle
+          >
+            Venues
+          </a>
+
+          <div ngbDropdownMenu class="dropdown-menu">
+            <a
+              ngbDropdownItem
+              [routerLink]="['/venues']">
+              Venues
+            </a>
+            <a
+              ngbDropdownItem
+              [routerLink]="['venues', 'new']">
+              New Venue
+            </a>
+          </div>
+        </li>
+        <li *ngIf="!currentUser?.admin"
+          class="nav-item"
+          routerLinkActive="active">
           <a routerLink="/venues" class="nav-link">Venues</a>
         </li>
       </ul>

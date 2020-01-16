@@ -12,7 +12,7 @@ import { map, take } from 'rxjs/operators';
 import { AuthService } from "../_services/auth.service";
 
 @Injectable({ providedIn: "root" })
-export class AuthGuard implements CanActivate {
+export class AdminGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(
@@ -25,13 +25,15 @@ export class AuthGuard implements CanActivate {
 
     return this.authService.getCurrentUser().pipe(
       take(1),
-      map(user => {
-        const isAuthorized = !!user;
-        // const isAuthorized = event === route.params.id;
+      map(currentUser => {
+        if(currentUser){
+          if(currentUser.admin){
+            return true;
+          }
 
-        if (isAuthorized) {
-          return true;
+          return this.router.createUrlTree(["/venues"]);
         }
+
 
         return this.router.createUrlTree(["/auth/login"]);
       })

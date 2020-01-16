@@ -13,44 +13,60 @@ import { AuthGuard } from './_helpers/auth.guard';
 import { Role } from './_models/role';
 import { VenueResolverService } from './_services/venue-resolver.service';
 import { VenueDetailComponent } from './venues/venue-detail/venue-detail.component';
+import { VenueEditComponent } from './venues/venue-edit/venue-edit.component';
+import { AdminGuard } from './_helpers/admin.guard';
 
-    const routes: Routes = [
-      { path: '', redirectTo: '/events', pathMatch: "full" },
+
+const routes: Routes = [
+  { path: '', redirectTo: '/events', pathMatch: "full" },
+  {
+    path: "events",
+    component: EventsComponent,
+    resolve: [EventResolverService, VenueResolverService],
+    children: [
+      { path: "", component: EventStartComponent },
       {
-        path: "events",
-        component: EventsComponent,
-        resolve: [EventResolverService],
-        children: [
-          { path: "", component: EventStartComponent },
-          {
-            path: "new",
-            component: EventEditComponent,
-            canActivate: [AuthGuard] },
-          {
-            path: ":id",
-            component: EventDetailComponent,
-            // resolver is for when we reload /events/:id
-            resolve: [EventResolverService, VenueResolverService]
-          },
-          {
-            path: ":id/edit",
-            canActivate: [AuthGuard],
-            component: EventEditComponent,
-            // resolve: [EventResolverService],
-            data: { expectedRole: 'admin' }
-          }
-        ]
+        path: "new",
+        component: EventEditComponent,
+        canActivate: [AuthGuard]
       },
+      {
+        path: ":id",
+        component: EventDetailComponent,
+        // resolver is for when we reload /events/:id
+        resolve: [EventResolverService]
+      },
+      {
+        path: ":id/edit",
+        canActivate: [AuthGuard],
+        component: EventEditComponent,
+        // resolve: [EventResolverService],
+        data: { expectedRole: 'admin' }
+      }
+    ]
+  },
   {
     path: "venues",
     component: VenuesComponent,
     resolve: [VenueResolverService],
     children: [
       {
+        path: "new",
+        component: VenueEditComponent,
+        canActivate: [AdminGuard]
+      },
+      {
         path: ":id",
         component: VenueDetailComponent,
         resolve: [VenueResolverService, EventResolverService]
       },
+      {
+        path: ":id/edit",
+        canActivate: [AdminGuard],
+        component: VenueEditComponent,
+        // resolve: [EventResolverService],
+        // data: { expectedRole: 'admin' }
+      }
     ]
   },
   { path: 'auth/signup', component: SignupComponent},

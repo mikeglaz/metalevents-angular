@@ -4,7 +4,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { EventService } from '../../_services/event.service';
 import { DataService } from '../../_services/data.service';
-
+import { Venue } from '../../_models/venue.model';
+import { VenueService } from '../../_services/venue.service';
+import { Event } from '../../_models/event.model';
 
 
 @Component({
@@ -13,29 +15,33 @@ import { DataService } from '../../_services/data.service';
   styleUrls: ['./event-edit.component.scss']
 })
 export class EventEditComponent implements OnInit {
-  id: number;
+  event: Event;
   editMode = false;
   eventForm: FormGroup;
+  venues: Venue[];
 
   constructor(
     private route: ActivatedRoute,
     private eventService: EventService,
     private router: Router,
-    private dataService: DataService)
+    private venueService: VenueService)
   {}
 
   ngOnInit() {
     this.route.params
       .subscribe((params: Params) => {
-        this.id = +params.id;
+        this.event = this.eventService.getEvent(+params.id);
         this.editMode = params.id != null;
+        this.venues = this.venueService.getVenues();
         this.initForm();
       });
+
+
   }
 
   onSubmit() {
     if(this.editMode) {
-      this.eventService.updateEvent(this.id, this.eventForm.value);
+      this.eventService.updateEvent(this.event.id, this.eventForm.value);
       // this.dataService.updateEvent(this.id, this.eventForm.value);
     } else {
       this.eventService.newEvent(this.eventForm.value);
@@ -51,24 +57,23 @@ export class EventEditComponent implements OnInit {
 
 
   private initForm() {
-    let eventName: string;
-    let eventDescription: string;
-    let eventVenue: string;
-    let eventDate: Date;
+    let eventName: string = '';
+    let eventDescription: string = '';
+    let eventVenue: number;
+    let eventDate: Date = null;
 
     if(this.editMode){
-      const event = this.eventService.getEvent(this.id);
-      eventName = event.name;
-      eventDescription = event.description;
-      eventVenue = event.venue;
-      eventDate = event.date;
+      eventName = this.event.name;
+      eventDescription = this.event.description;
+      eventVenue = this.event.venue_id;
+      eventDate = this.event.date;
     }
 
     this.eventForm = new FormGroup({
       name: new FormControl(eventName, Validators.required),
       description: new FormControl(eventDescription, Validators.required),
       date: new FormControl(eventDate, Validators.required),
-      venue: new FormControl(eventVenue, Validators.required)
+      venue_id: new FormControl(eventVenue, Validators.required)
     });
   }
 

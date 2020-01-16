@@ -23,10 +23,40 @@ export class VenueService {
     return this.venues.find(venue => venue.id === id);
   }
 
-
   setVenues(venues: Venue[]) {
     this.venues = venues;
     this.venuesChanged.next(this.venues.slice());
+  }
+
+  newVenue(venue: Venue) {
+    this.saveVenue(venue).subscribe(savedVenue => {
+      this.venues.push(savedVenue);
+      this.venuesChanged.next(this.venues.slice());
+    });
+  }
+
+  updateVenue(id: number, venue: Venue) {
+    let venueIndex = this.venues.findIndex(venue => venue.id === id);
+
+    this.venues[venueIndex] = { ...venue, id: id };
+    this.venuesChanged.next(this.venues.slice());
+
+    this.http.put(`http://localhost:3000/venues/${id}`, { venue: venue })
+      .subscribe();
+  }
+
+  deleteVenue(venue: Venue) {
+    let venueIndex = this.venues.indexOf(venue);
+
+    this.http.delete(`http://localhost:3000/venues/${venue.id}`).subscribe(() => {
+      this.venues.splice(venueIndex, 1);
+      this.venuesChanged.next(this.venues.slice());
+    });
+  }
+
+  saveVenue(venue: Venue): Observable<Venue> {
+    return this.http
+      .post<Venue>("http://localhost:3000/venues", { venue: venue });
   }
 
   fetchVenues(): Observable<Venue[]> {

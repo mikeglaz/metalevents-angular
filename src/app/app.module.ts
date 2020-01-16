@@ -24,6 +24,7 @@ import { AuthInterceptor } from './_helpers/auth-interceptor';
 import { VenueListComponent } from './venues/venue-list/venue-list.component';
 import { VenueItemComponent } from './venues/venue-list/venue-item/venue-item.component';
 import { VenueDetailComponent } from './venues/venue-detail/venue-detail.component';
+import { VenueEditComponent } from './venues/venue-edit/venue-edit.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { VenueDetailComponent } from './venues/venue-detail/venue-detail.compone
     SignupComponent,
     VenueListComponent,
     VenueItemComponent,
-    VenueDetailComponent
+    VenueDetailComponent,
+    VenueEditComponent
   ],
   imports: [
     BrowserModule,

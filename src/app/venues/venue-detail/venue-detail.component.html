@@ -6,7 +6,7 @@
 <br>
 {{ venue.city }}, {{ venue.state }}
 <br>
-<div *ngIf="false">
+<div *ngIf="currentUser?.admin">
   <button class="btn btn-warning" routerLink="edit">Edit Venue</button>
   <button class="btn btn-danger" (click)="onDeleteEvent()">Delete Venue</button>
 </div>
