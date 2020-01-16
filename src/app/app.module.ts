@@ -25,6 +25,11 @@ import { VenueListComponent } from './venues/venue-list/venue-list.component';
 import { VenueItemComponent } from './venues/venue-list/venue-item/venue-item.component';
 import { VenueDetailComponent } from './venues/venue-detail/venue-detail.component';
 import { VenueEditComponent } from './venues/venue-edit/venue-edit.component';
+import { UsersComponent } from './users/users.component';
+import { UserDetailComponent } from './users/user-detail/user-detail.component';
+import { UserEditComponent } from './users/user-edit/user-edit.component';
+import { UserListComponent } from './users/user-list/user-list.component';
+import { UserItemComponent } from './users/user-list/user-item/user-item.component';
 
 
 @NgModule({
@@ -44,7 +49,12 @@ import { VenueEditComponent } from './venues/venue-edit/venue-edit.component';
     VenueListComponent,
     VenueItemComponent,
     VenueDetailComponent,
-    VenueEditComponent
+    VenueEditComponent,
+    UsersComponent,
+    UserDetailComponent,
+    UserEditComponent,
+    UserListComponent,
+    UserItemComponent
   ],
   imports: [
     BrowserModule,

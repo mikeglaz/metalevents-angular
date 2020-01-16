@@ -122,7 +122,7 @@ export class AuthService {
   private setCurrentUser() {
     if(this.token){
       const userData: User = this.jwtHelper.decodeToken(this.token);
-      const user = new User(userData.id, userData.name, userData.email, userData.admin, userData.exp);
+      const user = new User(userData.id, userData.name, userData.email, userData.admin);
       this.currentUserListener.next(user);
     }
   }

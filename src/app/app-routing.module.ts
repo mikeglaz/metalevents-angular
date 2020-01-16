@@ -15,6 +15,10 @@ import { VenueResolverService } from './_services/venue-resolver.service';
 import { VenueDetailComponent } from './venues/venue-detail/venue-detail.component';
 import { VenueEditComponent } from './venues/venue-edit/venue-edit.component';
 import { AdminGuard } from './_helpers/admin.guard';
+import { UsersComponent } from './users/users.component';
+import { UserEditComponent } from './users/user-edit/user-edit.component';
+import { UserDetailComponent } from './users/user-detail/user-detail.component';
+import { UserResolverService } from './_services/user-resolver.service';
 
 
 const routes: Routes = [
@@ -66,6 +70,28 @@ const routes: Routes = [
         component: VenueEditComponent,
         // resolve: [EventResolverService],
         // data: { expectedRole: 'admin' }
+      }
+    ]
+  },
+    {
+    path: "users",
+    component: UsersComponent,
+    resolve: [UserResolverService],
+    canActivate: [AdminGuard],
+    children: [
+      {
+        path: "new",
+        component: UserEditComponent,
+        // canActivate: [AdminGuard]
+      },
+      {
+        path: ":id",
+        component: UserDetailComponent,
+        // resolve: [UserResolverService]
+      },
+      {
+        path: ":id/edit",
+        component: UserEditComponent,
       }
     ]
   },

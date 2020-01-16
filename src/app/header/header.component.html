@@ -74,6 +74,11 @@
           routerLinkActive="active">
           <a routerLink="/venues" class="nav-link">Venues</a>
         </li>
+        <li *ngIf="currentUser?.admin"
+          class="nav-item"
+          routerLinkActive="active">
+          <a routerLink="/users" class="nav-link">Users</a>
+        </li>
       </ul>
       <ul class="navbar-nav" *ngIf="currentUser">
         <li
