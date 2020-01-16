@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 
 import { Venue } from '../_models/venue.model';
 import { VenueService } from '../_services/venue.service';
@@ -11,7 +10,7 @@ import { VenueService } from '../_services/venue.service';
   styleUrls: ['./venues.component.scss']
 })
 export class VenuesComponent implements OnInit {
-  extLinkIcon = faExternalLinkAlt;
+
 
   venues: Venue[];
 

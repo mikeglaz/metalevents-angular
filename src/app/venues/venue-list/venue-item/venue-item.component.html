@@ -1,1 +1,11 @@
-<p>venue-item works!</p>
+<div class="list-group">
+  <a
+    [routerLink]="['/venues', venue.id]"
+    routerLinkActive="active"
+    style="cursor: pointer"
+    class="list-group-item list-group-item-action">
+    {{ venue.name }}
+  </a>
+</div>
+
+

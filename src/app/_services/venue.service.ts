@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 import { AuthService } from './auth.service';
 import { Venue } from "../_models/venue.model";
@@ -10,6 +10,7 @@ import { tap } from 'rxjs/operators';
   providedIn: "root"
 })
 export class VenueService {
+  public venuesChanged = new Subject<Venue[]>();
   private venues: Venue[] = [];
 
   constructor(private http: HttpClient, private authService: AuthService) {}
@@ -18,10 +19,20 @@ export class VenueService {
     return this.venues.slice();
   }
 
+  getVenue(id: number): Venue {
+    return this.venues.find(venue => venue.id === id);
+  }
+
+
+  setVenues(venues: Venue[]) {
+    this.venues = venues;
+    this.venuesChanged.next(this.venues.slice());
+  }
+
   fetchVenues(): Observable<Venue[]> {
     return this.http.get<Venue[]>("http://localhost:3000/venues").pipe(
       tap(venues => {
-        this.venues = venues;
+        this.setVenues(venues);
       })
     )
   }

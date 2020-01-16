@@ -15,9 +15,12 @@ export class VenueListComponent implements OnInit {
 
   ngOnInit() {
 
+    this.venueService.venuesChanged.subscribe((venues: Venue[]) => {
+      this.venues = venues;
+    });
+
     this.venues = this.venueService.getVenues();
 
-    this.venueService.fetchVenues();
   }
 
 }

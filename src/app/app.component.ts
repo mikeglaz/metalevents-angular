@@ -12,9 +12,7 @@ import { EventService } from './_services/event.service';
 export class AppComponent implements OnInit {
   title = "metalevents";
 
-  constructor(
-    private authService: AuthService
-  ) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
     this.authService.autoLogin();

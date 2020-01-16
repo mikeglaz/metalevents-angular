@@ -12,6 +12,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { AuthGuard } from './_helpers/auth.guard';
 import { Role } from './_models/role';
 import { VenueResolverService } from './_services/venue-resolver.service';
+import { VenueDetailComponent } from './venues/venue-detail/venue-detail.component';
 
     const routes: Routes = [
       { path: '', redirectTo: '/events', pathMatch: "full" },
@@ -43,7 +44,15 @@ import { VenueResolverService } from './_services/venue-resolver.service';
   {
     path: "venues",
     component: VenuesComponent,
-    resolve: [VenueResolverService] },
+    resolve: [VenueResolverService],
+    children: [
+      {
+        path: ":id",
+        component: VenueDetailComponent,
+        resolve: [VenueResolverService]
+      },
+    ]
+  },
   { path: 'auth/signup', component: SignupComponent},
   { path: 'auth/login', component: LoginComponent}
 ];
