@@ -19,6 +19,10 @@ import { UsersComponent } from './users/users.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { UserDetailComponent } from './users/user-detail/user-detail.component';
 import { UserResolverService } from './_services/user-resolver.service';
+import { PasswordResetComponent } from './auth/password-reset/password-reset.component';
+import { PasswordUpdateComponent } from './auth/password-update/password-update.component';
+import { ActivationComponent } from './auth/activation/activation.component';
+import { ActivationErrorComponent } from './auth/activation-error/activation-error.component';
 
 
 const routes: Routes = [
@@ -95,8 +99,12 @@ const routes: Routes = [
       }
     ]
   },
-  { path: 'auth/signup', component: SignupComponent},
-  { path: 'auth/login', component: LoginComponent}
+  { path: 'auth/signup', component: SignupComponent },
+  { path: 'auth/login', component: LoginComponent },
+  { path: 'auth/activation', component: ActivationComponent },
+  { path: 'auth/activation_error', component: ActivationErrorComponent },
+  { path: 'auth/password-reset', component: PasswordResetComponent },
+  { path: 'auth/password-update', component: PasswordUpdateComponent }
 ];
 
 @NgModule({

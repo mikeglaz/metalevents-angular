@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(email, password).subscribe(
       (response) => {
         this.isLoading = false;
+        this.router.navigate(['/events']);
       },
       errorMessage => {
         this.error = errorMessage;

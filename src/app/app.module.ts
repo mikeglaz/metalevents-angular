@@ -30,6 +30,10 @@ import { UserDetailComponent } from './users/user-detail/user-detail.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { UserItemComponent } from './users/user-list/user-item/user-item.component';
+import { PasswordResetComponent } from './auth/password-reset/password-reset.component';
+import { PasswordUpdateComponent } from './auth/password-update/password-update.component';
+import { ActivationComponent } from './auth/activation/activation.component';
+import { ActivationErrorComponent } from './auth/activation-error/activation-error.component';
 
 
 @NgModule({
@@ -54,7 +58,11 @@ import { UserItemComponent } from './users/user-list/user-item/user-item.compone
     UserDetailComponent,
     UserEditComponent,
     UserListComponent,
-    UserItemComponent
+    UserItemComponent,
+    PasswordResetComponent,
+    PasswordUpdateComponent,
+    ActivationComponent,
+    ActivationErrorComponent
   ],
   imports: [
     BrowserModule,

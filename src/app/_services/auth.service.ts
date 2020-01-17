@@ -63,8 +63,8 @@ export class AuthService {
 
   login(email: string, password: string) {
     return this.http.post<{token: string}>("http://localhost:3000/login", {
-      email,
-      password
+      email: email,
+      password: password
     }).pipe(tap(response => {
       this.token = response.token;
 
@@ -83,6 +83,14 @@ export class AuthService {
         this.router.navigate(['/events']);
       }
     }));
+  }
+
+  passwordReset(email: string) {
+    return this.http.post<{message: string}>("http://localhost:3000/password_reset", { email: email });
+  }
+
+  passwordUpdate(email: string, password: string) {
+    return this.http.post<{message: string}>("http://localhost:3000/password_update", { email: email, password: password });
   }
 
   // isLoggedIn() {
