@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormControl, ValidationErrors } from '@angular/forms';
 import { AuthService } from '../../_services/auth.service';
 import { Router } from '@angular/router';
 
@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class PasswordUpdateComponent implements OnInit {
   isLoading = false;
   error: string = null;
+  formError: string = null;
   passwordUpdateForm: FormGroup;
 
   constructor(
@@ -19,8 +20,15 @@ export class PasswordUpdateComponent implements OnInit {
 
   ngOnInit() {
     this.passwordUpdateForm = new FormGroup({
-      email: new FormControl(null, [Validators.required, Validators.email])
+      password: new FormControl(null, [Validators.required, Validators.email])
     });
+
+    this.passwordUpdateForm.addControl(
+      "confirmedPassword",
+      new FormControl(null, [
+        Validators.compose([Validators.required, this.passwordsMatch])
+      ])
+    );
   }
 
   onSubmit() {
@@ -41,5 +49,20 @@ export class PasswordUpdateComponent implements OnInit {
       }
     );
   }
+
+  private passwordsMatch = (control: FormControl): ValidationErrors | null => {
+    // this.formError =
+    if(control.value === this.passwordUpdateForm.get("password").value) {
+      return null;
+    }
+
+    return {
+      passwordError: true
+    };
+
+    // return control.value === this.passwordUpdateForm.get("password").value ? null : {
+    //   passwordError: true
+    // };
+  };
 
 }

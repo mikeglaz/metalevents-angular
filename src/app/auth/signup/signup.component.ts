@@ -36,7 +36,7 @@ export class SignupComponent implements OnInit {
     this.signupForm.addControl(
       "confirmedPassword",
       new FormControl(null, [
-        Validators.compose([Validators.required, this.passwordConfirmation])
+        Validators.compose([Validators.required, this.passwordsMatch])
       ])
     );
   }
@@ -64,7 +64,7 @@ export class SignupComponent implements OnInit {
     this.signupForm.reset();
   }
 
-  passwordConfirmation = (control: FormControl): ValidationErrors | null => {
+  private passwordsMatch = (control: FormControl): ValidationErrors | null => {
     return control.value === this.signupForm.get("password").value ? null : {
       passwordError: true
     };
