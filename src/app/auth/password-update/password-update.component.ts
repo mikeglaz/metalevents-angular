@@ -32,22 +32,23 @@ export class PasswordUpdateComponent implements OnInit {
   }
 
   onSubmit() {
-    this.isLoading = true;
+    console.log(this.passwordUpdateForm);
+    // this.isLoading = true;
 
     const email = this.passwordUpdateForm.value.email;
     const password = this.passwordUpdateForm.value.password;
 
-    this.authService.passwordUpdate(email, password).subscribe(
-      (response) => {
-        this.isLoading = false;
-        // this.passwordUpdateForm.reset();
-        // this.router.navigate(['/auth/login']);
-      },
-      errorMessage => {
-        this.error = errorMessage;
-        this.isLoading = false;
-      }
-    );
+    // this.authService.passwordUpdate(email, password).subscribe(
+    //   (response) => {
+    //     this.isLoading = false;
+    //     // this.passwordUpdateForm.reset();
+    //     // this.router.navigate(['/auth/login']);
+    //   },
+    //   errorMessage => {
+    //     this.error = errorMessage;
+    //     this.isLoading = false;
+    //   }
+    // );
   }
 
   private passwordsMatch = (control: FormControl): ValidationErrors | null => {
