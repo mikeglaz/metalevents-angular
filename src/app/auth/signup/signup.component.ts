@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { AuthService, AuthResponse } from '../../_services/auth.service';
+import { ValidatorFn } from '@angular/forms';
 
 
 @Component({
@@ -30,15 +31,9 @@ export class SignupComponent implements OnInit {
     this.signupForm = new FormGroup({
       name: new FormControl(null, Validators.required),
       email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, Validators.required)
-    });
-
-    this.signupForm.addControl(
-      "confirmedPassword",
-      new FormControl(null, [
-        Validators.compose([Validators.required, this.passwordsMatch])
-      ])
-    );
+      password: new FormControl(null, Validators.required),
+      confirmedPassword: new FormControl(null, Validators.required)
+    }, { validators: this.passwordMatchValidator });
   }
 
   onSubmit() {
@@ -64,9 +59,18 @@ export class SignupComponent implements OnInit {
     this.signupForm.reset();
   }
 
-  private passwordsMatch = (control: FormControl): ValidationErrors | null => {
-    return control.value === this.signupForm.get("password").value ? null : {
-      passwordError: true
+  private passwordMatchValidator: ValidatorFn = (
+    control: FormControl
+  ): ValidationErrors | null => {
+    const password = control.get('password');
+    const confirmedPassword = control.get('confirmedPassword');
+
+    if(password && confirmedPassword && password.value === confirmedPassword.value) {
+      return null;
+    }
+
+    return {
+      passwordMismatch: true
     };
   };
 

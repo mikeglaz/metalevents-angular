@@ -104,7 +104,7 @@ const routes: Routes = [
   { path: 'auth/activation', component: ActivationComponent },
   { path: 'auth/activation_error', component: ActivationErrorComponent },
   { path: 'auth/password-reset', component: PasswordResetComponent },
-  { path: 'auth/password-update', component: PasswordUpdateComponent }
+  { path: 'auth/password-update/:id', component: PasswordUpdateComponent }
 ];
 
 @NgModule({

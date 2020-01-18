@@ -52,6 +52,9 @@
           formControlName="confirmedPassword"
           class="form-control">
       </div>
+      <span class="error-text" *ngIf="signupForm.errors?.passwordMismatch && signupForm.get('confirmedPassword').touched">
+        Passwords do not match
+      </span>
       <div>
         <button
           class="btn btn-primary"
