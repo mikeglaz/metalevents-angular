@@ -37,13 +37,13 @@ export class UserService {
   // }
 
   updateUser(id: number, user: User) {
-    let userIndex = this.users.findIndex(user => user.id === id);
+    return this.http.put(`http://localhost:3000/users/${id}`, { user: user });
+      // .subscribe(response => {
+      //   let userIndex = this.users.findIndex(user => user.id === id);
 
-    this.users[userIndex] = { ...user, id: id };
-    this.usersChanged.next(this.users.slice());
-
-    this.http.put(`http://localhost:3000/users/${id}`, { user: user })
-      .subscribe();
+      //   this.users[userIndex] = { ...user, id: id };
+      //   this.usersChanged.next(this.users.slice());
+      // });
   }
 
   deleteUser(user: User) {

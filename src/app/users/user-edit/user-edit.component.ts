@@ -34,7 +34,12 @@ export class UserEditComponent implements OnInit {
 
   onSubmit() {
     // this.isLoading = true;
-    this.userService.updateUser(this.user.id, this.userForm.value);
+    this.userService.updateUser(this.user.id, this.userForm.value).subscribe(user => {
+      // let userIndex = this.users.findIndex(user => user.id === id);
+
+      // this.users[userIndex] = { ...user, id: id };
+      // this.usersChanged.next(this.users.slice());
+    });
 
     this.onCancel();
     // .subscribe(
