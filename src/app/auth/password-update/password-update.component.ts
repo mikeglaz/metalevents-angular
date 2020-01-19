@@ -63,11 +63,12 @@ export class PasswordUpdateComponent implements OnInit {
     const confirmedPassword = this.passwordUpdateForm.value.confirmedPassword;
 
     if(password === confirmedPassword) {
-      this.authService.passwordUpdate(this.token).subscribe(
+      this.authService.passwordUpdate(this.token, password).subscribe(
         (response) => {
+          this.authService.setMessage(response.message);
           this.isLoading = false;
-          // this.passwordUpdateForm.reset();
-          // this.router.navigate(['/auth/login']);
+          this.passwordUpdateForm.reset();
+          this.router.navigate(['/auth/login']);
         },
         errorMessage => {
           this.error = errorMessage;

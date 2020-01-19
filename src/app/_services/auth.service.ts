@@ -20,6 +20,7 @@ export interface AuthResponse {
 @Injectable({ providedIn: "root" })
 export class AuthService {
   private currentUserListener: BehaviorSubject<User>;
+  private messageListener: BehaviorSubject<string>;
   private jwtHelper: JwtHelperService;
 
   // public currentUser: Observable<User>;
@@ -34,6 +35,7 @@ export class AuthService {
     private router: Router
   ) {
     this.currentUserListener = new BehaviorSubject<User>(null);
+    this.messageListener = new BehaviorSubject<string>(null);
     // this.currentUserListener = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
 
     this.jwtHelper = new JwtHelperService();
@@ -89,8 +91,8 @@ export class AuthService {
     return this.http.post<{message: string}>("http://localhost:3000/password_reset", { email: email });
   }
 
-  passwordUpdate(token: string) {
-    return this.http.put<{message: string}>("http://localhost:3000/password_reset", { token: token });
+  passwordUpdate(token: string, password: string) {
+    return this.http.put<{message: string}>("http://localhost:3000/password_reset", { token: token, password: password });
   }
 
   // isLoggedIn() {
@@ -133,6 +135,14 @@ export class AuthService {
       const user = new User(userData.id, userData.name, userData.email, userData.admin);
       this.currentUserListener.next(user);
     }
+  }
+
+  setMessage(message: string) {
+    this.messageListener.next(message);
+  }
+
+  getMessage() {
+    return this.messageListener;
   }
 
   getCurrentUser() {
