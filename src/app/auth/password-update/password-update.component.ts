@@ -6,8 +6,11 @@ import {
   ValidationErrors,
   ValidatorFn
 } from "@angular/forms";
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 import { AuthService } from "../../_services/auth.service";
-import { Router } from "@angular/router";
+
 
 @Component({
   selector: "app-password-update",
@@ -17,12 +20,33 @@ import { Router } from "@angular/router";
 export class PasswordUpdateComponent implements OnInit {
   isLoading = false;
   error: string = null;
+  token: string = null;
   formError: string = null;
   passwordUpdateForm: FormGroup;
+  userEmail: string = null;
+  private jwtHelper: JwtHelperService;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private router: Router) {
+
+    this.jwtHelper = new JwtHelperService();
+  }
 
   ngOnInit() {
+    this.route.params
+      .subscribe((params: Params) => {
+        this.token = params.token;
+
+        if(this.token) {
+          const decodedToken: { email: string, exp: number } = this.jwtHelper.decodeToken(this.token);
+
+          this.userEmail = decodedToken.email;
+
+        }
+      });
+
     this.passwordUpdateForm = new FormGroup(
       {
         password: new FormControl(null, Validators.required),
@@ -39,17 +63,17 @@ export class PasswordUpdateComponent implements OnInit {
     const confirmedPassword = this.passwordUpdateForm.value.confirmedPassword;
 
     if(password === confirmedPassword) {
-      // this.authService.passwordUpdate(email, password).subscribe(
-      //   (response) => {
-      //     this.isLoading = false;
-      //     // this.passwordUpdateForm.reset();
-      //     // this.router.navigate(['/auth/login']);
-      //   },
-      //   errorMessage => {
-      //     this.error = errorMessage;
-      //     this.isLoading = false;
-      //   }
-      // );
+      this.authService.passwordUpdate(this.token).subscribe(
+        (response) => {
+          this.isLoading = false;
+          // this.passwordUpdateForm.reset();
+          // this.router.navigate(['/auth/login']);
+        },
+        errorMessage => {
+          this.error = errorMessage;
+          this.isLoading = false;
+        }
+      );
     } else {
       this.error = 'Passwords do not match'
     }

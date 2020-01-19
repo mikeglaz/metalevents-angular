@@ -89,8 +89,8 @@ export class AuthService {
     return this.http.post<{message: string}>("http://localhost:3000/password_reset", { email: email });
   }
 
-  passwordUpdate(email: string, password: string) {
-    return this.http.post<{message: string}>("http://localhost:3000/password_update", { email: email, password: password });
+  passwordUpdate(token: string) {
+    return this.http.put<{message: string}>("http://localhost:3000/password_reset", { token: token });
   }
 
   // isLoggedIn() {
