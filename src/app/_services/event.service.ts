@@ -10,11 +10,15 @@ import { tap } from 'rxjs/operators';
   providedIn: "root"
 })
 export class EventService {
-  eventsChanged = new Subject<Event[]>();
+  eventsChanged: Subject<Event[]>;
+  eventChanged: Subject<Event>;
 
   private events: Event[] = [];
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService) {
+     this.eventsChanged = new Subject<Event[]>();
+     this.eventChanged = new Subject<Event>();
+  }
 
   setEvents(events: Event[]) {
     this.events = events;
@@ -37,13 +41,15 @@ export class EventService {
   }
 
   updateEvent(id: number, event: Event) {
-    let eventIndex = this.events.findIndex(event => event.id === id);
-
-    this.events[eventIndex] = { ...event, id: id };
-    this.eventsChanged.next(this.events.slice());
-
     this.http.put(`http://localhost:3000/events/${id}`, { event: event })
-      .subscribe();
+      .subscribe(response => {
+        const eventIndex = this.events.findIndex(event => event.id === id);
+        const updatedEvent = { ...event, id: id };
+
+        this.events[eventIndex] = updatedEvent;
+        this.eventChanged.next(updatedEvent);
+        this.eventsChanged.next(this.events.slice());
+      });
   }
 
   deleteEvent(event: Event) {

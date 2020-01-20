@@ -36,6 +36,10 @@ export class EventDetailComponent implements OnInit {
     this.authService.getCurrentUser().subscribe(user => {
       this.currentUser = user;
     });
+
+    this.eventService.eventChanged.subscribe(event => {
+      this.event = event;
+    });
   }
 
   authorized() {

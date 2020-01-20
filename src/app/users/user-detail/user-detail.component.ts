@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import { User } from '../../_models/user.model';
 import { UserService } from '../../_services/user.service';
 import { AuthService } from '../../_services/auth.service';
+import { Subject } from 'rxjs';
 
 
 @Component({
@@ -24,10 +25,11 @@ export class UserDetailComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.user = this.userService.getUser(+params.id);
+      this.userService.userChanged.next(this.user);
     });
 
-    this.authService.getCurrentUser().subscribe(user => {
-      this.currentUser = user;
+    this.userService.userChanged.subscribe(user => {
+      this.user = user;
     });
   }
 

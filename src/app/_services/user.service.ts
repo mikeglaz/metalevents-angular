@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, BehaviorSubject } from 'rxjs';
 import { HttpClient } from "@angular/common/http";
 
 import { User } from "../_models/user.model";
@@ -11,10 +11,13 @@ import { tap } from 'rxjs/operators';
 })
 export class UserService {
   usersChanged = new Subject<User[]>();
+  userChanged: BehaviorSubject<User>;
 
   private users: User[] = [];
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService) {
+    this.userChanged = new BehaviorSubject<User>(null);
+  }
 
   setUsers(users: User[]) {
     this.users = users;
@@ -37,13 +40,15 @@ export class UserService {
   // }
 
   updateUser(id: number, user: User) {
-    return this.http.put(`http://localhost:3000/users/${id}`, { user: user });
-      // .subscribe(response => {
-      //   let userIndex = this.users.findIndex(user => user.id === id);
+    this.http.put(`http://localhost:3000/users/${id}`, { user: user })
+      .subscribe(response => {
+        const userIndex = this.users.findIndex(user => user.id === id);
+        const updatedUser = { ...user, id: id };
 
-      //   this.users[userIndex] = { ...user, id: id };
-      //   this.usersChanged.next(this.users.slice());
-      // });
+        this.users[userIndex] = updatedUser;
+        this.usersChanged.next(this.users.slice());
+        this.userChanged.next(updatedUser);
+      });
   }
 
   deleteUser(user: User) {

@@ -55,10 +55,9 @@ export class AuthService {
 
   signup(name: string, email: string, password: string) {
     return this.http
-      .post<AuthResponse>("http://localhost:3000/signup", {
-        name,
-        email,
-        password
+      .post<AuthResponse>("http://localhost:3000/signup", { user: {
+        name, email, password
+      }
       })
       .pipe(catchError(this.handleError));
   }

@@ -31,6 +31,7 @@ export class EventEditComponent implements OnInit {
     this.route.params
       .subscribe((params: Params) => {
         this.event = this.eventService.getEvent(+params.id);
+        console.log(this.event);
         this.editMode = params.id != null;
         this.venues = this.venueService.getVenues();
         this.initForm();
