@@ -40,11 +40,13 @@ export class EventService {
     });
   }
 
-  updateEvent(id: number, event: Event) {
+  updateEvent(id: number, newEvent: Event) {
+    console.log(event);
     this.http.put(`http://localhost:3000/events/${id}`, { event: event })
       .subscribe(response => {
+        const oldEvent = this.events.find(event => event.id === id);
         const eventIndex = this.events.findIndex(event => event.id === id);
-        const updatedEvent = { ...event, id: id };
+        const updatedEvent = { ...newEvent, id: id, user_id: oldEvent.user_id };
 
         this.events[eventIndex] = updatedEvent;
         this.eventChanged.next(updatedEvent);

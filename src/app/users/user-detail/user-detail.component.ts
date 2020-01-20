@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 
 import { User } from '../../_models/user.model';
 import { UserService } from '../../_services/user.service';
 import { AuthService } from '../../_services/auth.service';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 
 
 @Component({
@@ -12,9 +12,9 @@ import { Subject } from 'rxjs';
   templateUrl: './user-detail.component.html',
   styleUrls: ['./user-detail.component.scss']
 })
-export class UserDetailComponent implements OnInit {
+export class UserDetailComponent implements OnInit, OnDestroy {
   user: User;
-  currentUser: User;
+  userSubscription: Subscription;
 
   constructor(
     private userService: UserService,
@@ -28,7 +28,8 @@ export class UserDetailComponent implements OnInit {
       this.userService.userChanged.next(this.user);
     });
 
-    this.userService.userChanged.subscribe(user => {
+    this.userSubscription = this.userService.userChanged.subscribe(user => {
+      console.log(user);
       this.user = user;
     });
   }
@@ -39,5 +40,9 @@ export class UserDetailComponent implements OnInit {
       this.userService.deleteUser(this.user);
       this.router.navigate(["/users"]);
     }
+  }
+
+  ngOnDestroy() {
+    this.userSubscription.unsubscribe();
   }
 }
