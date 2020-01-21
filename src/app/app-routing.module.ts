@@ -29,7 +29,6 @@ import { ProfileDetailComponent } from './profile/profile-detail/profile-detail.
 
 const routes: Routes = [
   { path: '', redirectTo: '/events', pathMatch: "full" },
-  // { path: '', component: EventsComponent, resolve: [EventResolverService, VenueResolverService]},
   {
     path: "events",
     component: EventsComponent,
@@ -108,7 +107,7 @@ const routes: Routes = [
     // canActivate: [AuthGuard],
     children: [
       {
-        path: 'detail',
+        path: '',
         component: ProfileDetailComponent
       },
       {
