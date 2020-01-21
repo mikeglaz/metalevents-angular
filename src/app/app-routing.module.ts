@@ -23,10 +23,13 @@ import { PasswordResetComponent } from './auth/password-reset/password-reset.com
 import { PasswordUpdateComponent } from './auth/password-update/password-update.component';
 import { ActivationComponent } from './auth/activation/activation.component';
 import { ActivationErrorComponent } from './auth/activation-error/activation-error.component';
-
+import { ProfileComponent } from './profile/profile.component';
+import { ProfileEditComponent } from './profile/profile-edit/profile-edit.component';
+import { ProfileDetailComponent } from './profile/profile-detail/profile-detail.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/events', pathMatch: "full" },
+  // { path: '', component: EventsComponent, resolve: [EventResolverService, VenueResolverService]},
   {
     path: "events",
     component: EventsComponent,
@@ -86,7 +89,7 @@ const routes: Routes = [
       {
         path: "new",
         component: UserEditComponent,
-        // canActivate: [AdminGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: ":id",
@@ -98,6 +101,26 @@ const routes: Routes = [
         component: UserEditComponent,
       }
     ]
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    // canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'detail',
+        component: ProfileDetailComponent
+      },
+      {
+        path: "edit",
+        component: ProfileEditComponent,
+        // canActivate: [UserGuard]
+      }
+    ]
+  },
+  {
+    path: 'profile/edit',
+    component: ProfileEditComponent
   },
   { path: 'auth/signup', component: SignupComponent },
   { path: 'auth/login', component: LoginComponent },

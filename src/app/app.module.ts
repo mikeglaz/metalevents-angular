@@ -34,6 +34,9 @@ import { PasswordResetComponent } from './auth/password-reset/password-reset.com
 import { PasswordUpdateComponent } from './auth/password-update/password-update.component';
 import { ActivationComponent } from './auth/activation/activation.component';
 import { ActivationErrorComponent } from './auth/activation-error/activation-error.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ProfileEditComponent } from './profile/profile-edit/profile-edit.component';
+import { ProfileDetailComponent } from './profile/profile-detail/profile-detail.component';
 
 
 @NgModule({
@@ -62,7 +65,10 @@ import { ActivationErrorComponent } from './auth/activation-error/activation-err
     PasswordResetComponent,
     PasswordUpdateComponent,
     ActivationComponent,
-    ActivationErrorComponent
+    ActivationErrorComponent,
+    ProfileComponent,
+    ProfileEditComponent,
+    ProfileDetailComponent
   ],
   imports: [
     BrowserModule,
