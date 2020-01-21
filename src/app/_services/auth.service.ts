@@ -145,7 +145,7 @@ export class AuthService {
   }
 
   getCurrentUser() {
-    return this.currentUserListener.asObservable();
+    return this.currentUserListener;
     // return this.currentUserListener.value;
   }
 

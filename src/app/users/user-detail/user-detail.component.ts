@@ -29,7 +29,6 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     });
 
     this.userSubscription = this.userService.userChanged.subscribe(user => {
-      console.log(user);
       this.user = user;
     });
   }

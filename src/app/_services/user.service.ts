@@ -40,15 +40,15 @@ export class UserService {
   // }
 
   updateUser(id: number, user: User) {
-    this.http.put(`http://localhost:3000/users/${id}`, { user: user })
-      .subscribe(response => {
+    return this.http.put<User>(`http://localhost:3000/users/${id}`, { user: user })
+      .pipe(tap(user => {
         const userIndex = this.users.findIndex(user => user.id === id);
-        const updatedUser = { ...user, id: id };
 
-        this.users[userIndex] = updatedUser;
+        this.users[userIndex] = user;
         this.usersChanged.next(this.users.slice());
-        this.userChanged.next(updatedUser);
-      });
+
+        this.userChanged.next(user);
+      }));
   }
 
   deleteUser(user: User) {

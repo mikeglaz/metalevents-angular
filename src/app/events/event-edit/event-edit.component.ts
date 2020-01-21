@@ -3,7 +3,6 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { EventService } from '../../_services/event.service';
-import { DataService } from '../../_services/data.service';
 import { Venue } from '../../_models/venue.model';
 import { VenueService } from '../../_services/venue.service';
 import { Event } from '../../_models/event.model';

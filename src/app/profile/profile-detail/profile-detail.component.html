@@ -1,6 +1,13 @@
+<div class="row justify-content-center" *ngIf="message">
+  <div class="alert alert-success">
+    {{message}}
+  </div>
+</div>
+
 <b>Name:</b> {{ user.name }}
 <br>
 <b>Email:</b> {{ user.email }}
 <br>
-<button class="btn btn-warning" routerLink="edit">Edit Profile</button>
+<button class="btn btn-warning" routerLink="edit" disabled>Edit Profile (wip)</button>
+<button class="btn btn-danger" routerLink="password-update">Change Password</button>
 

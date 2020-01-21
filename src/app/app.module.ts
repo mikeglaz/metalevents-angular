@@ -37,6 +37,7 @@ import { ActivationErrorComponent } from './auth/activation-error/activation-err
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileEditComponent } from './profile/profile-edit/profile-edit.component';
 import { ProfileDetailComponent } from './profile/profile-detail/profile-detail.component';
+import { ProfilePasswordComponent } from './profile/profile-password/profile-password.component';
 
 
 @NgModule({
@@ -68,7 +69,8 @@ import { ProfileDetailComponent } from './profile/profile-detail/profile-detail.
     ActivationErrorComponent,
     ProfileComponent,
     ProfileEditComponent,
-    ProfileDetailComponent
+    ProfileDetailComponent,
+    ProfilePasswordComponent
   ],
   imports: [
     BrowserModule,
