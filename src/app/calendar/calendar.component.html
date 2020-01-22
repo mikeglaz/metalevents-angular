@@ -39,10 +39,10 @@
 </div>
 
 <div class="row" *ngFor="let row of rows">
-  <div class="col" [ngClass]="day.currentMonth ? 'day' : 'not day'" *ngFor="let day of days | slice:row*7:(row*7)+7">
+  <div class="col" [ngClass]="day.getMonth() === currentMonth ? 'day' : 'not day'" *ngFor="let day of days | slice:row*7:(row*7)+7">
     <app-calendar-day
-      [day]=day.day
-      [event]=checkForEvents(day)></app-calendar-day>
+      [day]=day
+      [events]=checkForEvents(day)></app-calendar-day>
   </div>
 </div>
 
