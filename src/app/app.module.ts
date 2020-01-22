@@ -38,6 +38,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { ProfileEditComponent } from './profile/profile-edit/profile-edit.component';
 import { ProfileDetailComponent } from './profile/profile-detail/profile-detail.component';
 import { ProfilePasswordComponent } from './profile/profile-password/profile-password.component';
+import { CalendarComponent } from './calendar/calendar.component';
+import { CalendarDayComponent } from './calendar/calendar-day/calendar-day.component';
 
 
 @NgModule({
@@ -70,7 +72,9 @@ import { ProfilePasswordComponent } from './profile/profile-password/profile-pas
     ProfileComponent,
     ProfileEditComponent,
     ProfileDetailComponent,
-    ProfilePasswordComponent
+    ProfilePasswordComponent,
+    CalendarComponent,
+    CalendarDayComponent
   ],
   imports: [
     BrowserModule,

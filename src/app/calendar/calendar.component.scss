@@ -1,0 +1,10 @@
+.day {
+  border: 1px solid #ced4da;
+  height: 13vh;
+  // width: 162.857142857px;
+
+  &.not {
+    background-color: silver;
+    color: white;
+  }
+}

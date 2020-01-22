@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 import { Event } from '../_models/event.model';
-import { DataService } from '../_services/data.service';
 import { EventService } from '../_services/event.service';
 
 

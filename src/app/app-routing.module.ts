@@ -27,6 +27,7 @@ import { ProfileComponent } from "./profile/profile.component";
 import { ProfileEditComponent } from "./profile/profile-edit/profile-edit.component";
 import { ProfileDetailComponent } from "./profile/profile-detail/profile-detail.component";
 import { ProfilePasswordComponent } from './profile/profile-password/profile-password.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "/events", pathMatch: "full" },
@@ -55,6 +56,10 @@ const routes: Routes = [
         data: { expectedRole: "admin" }
       }
     ]
+  },
+  {
+    path: "calendar",
+    component: CalendarComponent
   },
   {
     path: "venues",

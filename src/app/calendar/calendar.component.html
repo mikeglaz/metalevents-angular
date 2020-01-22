@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col text-center">
+    Sunday
+  </div>
+  <div class="col text-center">
+    Monday
+  </div>
+  <div class="col text-center">
+    Tuesday
+  </div>
+  <div class="col text-center">
+    Wednesday
+  </div>
+  <div class="col text-center">
+    Thursday
+  </div>
+  <div class="col text-center">
+    Friday
+  </div>
+  <div class="col text-center">
+    Saturday
+  </div>
+</div>
+
+<div class="row" *ngFor="let row of rows">
+  <div class="col day" *ngFor="let day of days | slice:row*7:(row*7)+7">
+    <app-calendar-day [day]=day></app-calendar-day>
+  </div>
+</div>
+
+<!-- <div class="row">
+  <div class="col day" *ngFor="let day of days | slice:7:14">
+    <app-calendar-day [day]=day></app-calendar-day>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col day" *ngFor="let day of days | slice:14:21">
+    <app-calendar-day [day]=day></app-calendar-day>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col day" *ngFor="let day of days | slice:21:28">
+    <app-calendar-day [day]=day></app-calendar-day>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col day" *ngFor="let day of days | slice:28">
+    <app-calendar-day [day]=day></app-calendar-day>
+  </div>
+</div> -->

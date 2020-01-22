@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 import { Venue } from '../_models/venue.model';
-import { DataService } from '../_services/data.service';
 import { VenueService } from '../_services/venue.service';
 
 
