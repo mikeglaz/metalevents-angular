@@ -1,16 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 
+type Day = {
+  currentMonth: boolean,
+  day: number
+}
+
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
 })
 export class CalendarComponent implements OnInit {
-  daysPreviousMonth: number[];
-  daysCurrentMonth: number[];
-  daysNextMonth: number[];
+  daysPreviousMonth: Day[];
+  daysCurrentMonth: Day[];
+  daysNextMonth: Day[];
 
-  days: number[];
+  days: Day[];
   rows: number[] = [];
 
   currentMonth: number;
@@ -55,8 +60,6 @@ export class CalendarComponent implements OnInit {
     for(let i=0; i <= numRows; i++) {
       this.rows.push(i)
     }
-
-    console.log(this.rows);
   }
 
   private daysInMonth(year: number, month: number): number {
@@ -71,43 +74,52 @@ export class CalendarComponent implements OnInit {
     return new Date(year, month+1, 0).getDay();
   }
 
-  private calendarDaysPreviousMonth(): number[] {
-    let days: number[] = [];
+  private calendarDaysPreviousMonth(): Day[] {
+    let days: Day[] = [];
 
     let startDay: number = this.numDaysPreviousMonth() - this.getFirstWeekday(this.currentYear, this.currentMonth) + 1;
 
     let endDay: number = this.numDaysPreviousMonth();
 
     for(let i=startDay; i <= endDay; i++) {
-      days.push(i);
+      days.push({
+        currentMonth: false,
+        day: i
+      });
     }
 
     return days;
 
   }
 
-  private calendarDaysCurrentMonth(): number[] {
-    let days: number[] = [];
+  private calendarDaysCurrentMonth(): Day[] {
+    let days: Day[] = [];
 
     let startDay: number = 1;
     let endDay: number = this.numDaysCurrentMonth();
 
     for(let i=startDay; i <= endDay; i++) {
-      days.push(i);
+      days.push({
+        currentMonth: true,
+        day: i
+      });
     }
 
     return days;
 
   }
 
-  private calendarDaysNextMonth(): number[] {
-    let days: number[] = [];
+  private calendarDaysNextMonth(): Day[] {
+    let days: Day[] = [];
 
     let startDay: number = 1;
     let endDay: number = startDay + (6 - this.getLastWeekday(this.currentYear, this.currentMonth));
 
     for(let i=startDay; i < endDay; i++) {
-      days.push(i);
+      days.push({
+        currentMonth: false,
+        day: i
+      });
     }
 
     return days;
