@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 type Day = {
   currentMonth: boolean,
@@ -11,6 +13,9 @@ type Day = {
   styleUrls: ['./calendar.component.scss']
 })
 export class CalendarComponent implements OnInit {
+  chevronLeft = faChevronLeft;
+  chevronRight = faChevronRight;
+
   daysPreviousMonth: Day[];
   daysCurrentMonth: Day[];
   daysNextMonth: Day[];
