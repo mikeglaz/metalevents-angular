@@ -59,7 +59,8 @@ const routes: Routes = [
   },
   {
     path: "calendar",
-    component: CalendarComponent
+    component: CalendarComponent,
+    resolve: [EventResolverService]
   },
   {
     path: "venues",

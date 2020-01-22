@@ -1,8 +1,17 @@
 <div class="row justify-content-center">
   <h4>
-    <a><fa-icon [icon]="chevronLeft"></fa-icon></a>
-  {{ months[currentMonth] }} {{ currentYear }}
-</h4>
+    <a
+      (click)="reverseMonth()"
+      style="cursor: pointer"
+      class="text-primary">
+      <fa-icon [icon]="chevronLeft"></fa-icon></a>
+      {{ months[currentMonth] }} {{ currentYear }}
+    <a
+      (click)="forwardMonth()"
+      style="cursor: pointer"
+      class="text-primary">
+      <fa-icon [icon]="chevronRight"></fa-icon></a>
+  </h4>
 </div>
 <br>
 <div class="row">
@@ -31,7 +40,9 @@
 
 <div class="row" *ngFor="let row of rows">
   <div class="col" [ngClass]="day.currentMonth ? 'day' : 'not day'" *ngFor="let day of days | slice:row*7:(row*7)+7">
-    <app-calendar-day [day]=day.day></app-calendar-day>
+    <app-calendar-day
+      [day]=day.day
+      [event]=checkForEvents(day)></app-calendar-day>
   </div>
 </div>
 

@@ -2,10 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
-type Day = {
-  currentMonth: boolean,
-  day: number
-}
+import { EventService } from '../_services/event.service';
+import { Event } from '../_models/event.model';
+
+
+// type Day = {
+//   currentMonth: boolean,
+//   day: number
+// }
 
 @Component({
   selector: 'app-calendar',
@@ -16,16 +20,20 @@ export class CalendarComponent implements OnInit {
   chevronLeft = faChevronLeft;
   chevronRight = faChevronRight;
 
-  daysPreviousMonth: Day[];
-  daysCurrentMonth: Day[];
-  daysNextMonth: Day[];
+  daysPreviousMonth: Date[];
+  daysCurrentMonth: Date[];
+  daysNextMonth: Date[];
 
-  days: Day[];
+  days: Date[];
   rows: number[] = [];
 
+  previousMonth: number;
   currentMonth: number;
+  nextMonth: number;
   currentYear: number;
   today: Date;
+
+  events: Event[];
 
   months = [
     'January',
@@ -42,7 +50,7 @@ export class CalendarComponent implements OnInit {
     'December'
   ];
 
-  constructor() {}
+  constructor(private eventService: EventService) {}
 
   ngOnInit() {
     this.today = new Date();
@@ -50,7 +58,45 @@ export class CalendarComponent implements OnInit {
     this.currentMonth = this.today.getMonth();
     this.currentYear = this.today.getFullYear();
 
+    this.loadDays();
 
+    this.events = this.eventService.getEvents();
+  }
+
+  checkForEvents(day) {
+    // console.log(day);
+  }
+
+  reverseMonth() {
+    if(this.currentMonth === 0) {
+      this.currentMonth = 11;
+      this.currentYear--;
+    } else {
+      this.currentMonth--;
+    }
+
+    this.loadDays();
+  }
+
+  forwardMonth() {
+    if(this.currentMonth === 11) {
+      this.currentMonth = 0;
+      this.currentYear++;
+    } else {
+      this.currentMonth++;
+    }
+
+    this.loadDays();
+  }
+
+  private getEventsForCurrentMonth() {
+    this.events = this.eventService.getEvents().filter(event => {
+      return new Date(event.date).getMonth() === this.currentMonth;
+    });
+  }
+
+  private loadDays() {
+    this.rows = [];
 
     this.daysPreviousMonth = this.calendarDaysPreviousMonth();
 
@@ -79,26 +125,27 @@ export class CalendarComponent implements OnInit {
     return new Date(year, month+1, 0).getDay();
   }
 
-  private calendarDaysPreviousMonth(): Day[] {
-    let days: Day[] = [];
+  private calendarDaysPreviousMonth(): Date[] {
+    let days: Date[] = [];
 
     let startDay: number = this.numDaysPreviousMonth() - this.getFirstWeekday(this.currentYear, this.currentMonth) + 1;
 
     let endDay: number = this.numDaysPreviousMonth();
 
+    let startDate: Date = new Date(this.currentYear-1, 11, startDay);
+
+    console.log(startDate);
+
     for(let i=startDay; i <= endDay; i++) {
-      days.push({
-        currentMonth: false,
-        day: i
-      });
+      days.push(new Date());
     }
 
     return days;
 
   }
 
-  private calendarDaysCurrentMonth(): Day[] {
-    let days: Day[] = [];
+  private calendarDaysCurrentMonth(): Date[] {
+    let days: Date[] = [];
 
     let startDay: number = 1;
     let endDay: number = this.numDaysCurrentMonth();
@@ -114,8 +161,8 @@ export class CalendarComponent implements OnInit {
 
   }
 
-  private calendarDaysNextMonth(): Day[] {
-    let days: Day[] = [];
+  private calendarDaysNextMonth(): Date[] {
+    let days: Date[] = [];
 
     let startDay: number = 1;
     let endDay: number = startDay + (6 - this.getLastWeekday(this.currentYear, this.currentMonth));
@@ -130,21 +177,6 @@ export class CalendarComponent implements OnInit {
     return days;
 
   }
-
-  // private getPreviousMonthDays(year: number, month: number): number[] {
-  //   if(month === 1) {
-  //     year--;
-  //   }
-
-  //   const dayOfWeek = this.getFirstWeekday(year, month);
-  //   let days: number[] = [];
-
-  //   for(let i=0; i < dayOfWeek; i++) {
-  //     days.push(i);
-  //   }
-
-  //   return days;
-  // }
 
   private numDaysCurrentMonth(): number {
     return this.daysInMonth(this.currentYear, this.currentMonth);

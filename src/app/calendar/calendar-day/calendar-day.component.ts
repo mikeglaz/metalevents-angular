@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class CalendarDayComponent implements OnInit {
   @Input() day;
+  @Input() event;
 
   constructor() { }
 
