@@ -5,6 +5,7 @@ import { throwError, BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
+import { environment } from '../../environments/environment';
 import { User } from '../_models/user.model';
 
 
@@ -55,7 +56,7 @@ export class AuthService {
 
   signup(name: string, email: string, password: string) {
     return this.http
-      .post<AuthResponse>("http://localhost:3000/signup", { user: {
+      .post<AuthResponse>(`${environment.apiEndpoint}/signup`, { user: {
         name, email, password
       }
       })
@@ -63,7 +64,7 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-    return this.http.post<{token: string}>("http://localhost:3000/login", {
+    return this.http.post<{token: string}>(`${environment.apiEndpoint}/login`, {
       email: email,
       password: password
     }).pipe(tap(response => {
@@ -87,11 +88,11 @@ export class AuthService {
   }
 
   passwordReset(email: string) {
-    return this.http.post<{message: string}>("http://localhost:3000/password_reset", { email: email });
+    return this.http.post<{message: string}>(`${environment.apiEndpoint}/password_reset`, { email: email });
   }
 
   passwordUpdate(token: string, password: string) {
-    return this.http.put<{message: string}>("http://localhost:3000/password_reset", { token: token, password: password });
+    return this.http.put<{message: string}>(`${environment.apiEndpoint}/password_reset`, { token: token, password: password });
   }
 
   // isLoggedIn() {

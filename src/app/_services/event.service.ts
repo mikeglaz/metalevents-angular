@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Subject, Observable } from 'rxjs';
 import { HttpClient } from "@angular/common/http";
 
+import { environment } from '../../environments/environment';
 import { Event } from "../_models/event.model";
 import { AuthService } from "./auth.service";
 import { tap } from 'rxjs/operators';
@@ -42,7 +43,7 @@ export class EventService {
 
   updateEvent(id: number, newEvent: Event) {
     console.log(event);
-    this.http.put(`http://localhost:3000/events/${id}`, { event: event })
+    this.http.put(`${environment.apiEndpoint}/events/${id}`, { event: event })
       .subscribe(response => {
         const oldEvent = this.events.find(event => event.id === id);
         const eventIndex = this.events.findIndex(event => event.id === id);
@@ -57,7 +58,7 @@ export class EventService {
   deleteEvent(event: Event) {
     let eventIndex = this.events.indexOf(event);
 
-    this.http.delete(`http://localhost:3000/events/${event.id}`).subscribe(() => {
+    this.http.delete(`${environment.apiEndpoint}/events/${event.id}`).subscribe(() => {
       this.events.splice(eventIndex, 1);
       this.eventsChanged.next(this.events.slice());
     });
@@ -65,7 +66,7 @@ export class EventService {
 
   saveEvent(event: Event): Observable<Event> {
     return this.http
-      .post<Event>("http://localhost:3000/events", { event: event });
+      .post<Event>(`${environment.apiEndpoint}/events`, { event: event });
   }
 
   // reloading eveints/:id does not work - with the subscription here
@@ -77,7 +78,7 @@ export class EventService {
   // }
 
   fetchEvents(): Observable<Event[]> {
-    return this.http.get<Event[]>("http://localhost:3000/events").pipe(
+    return this.http.get<Event[]>(`${environment.apiEndpoint}/events`).pipe(
       tap(events => {
         this.setEvents(events);
       })

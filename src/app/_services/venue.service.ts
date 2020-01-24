@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable, Subject } from 'rxjs';
 
+import { environment } from '../../environments/environment';
 import { AuthService } from './auth.service';
 import { Venue } from "../_models/venue.model";
 import { tap } from 'rxjs/operators';
@@ -41,14 +42,14 @@ export class VenueService {
     this.venues[venueIndex] = { ...venue, id: id };
     this.venuesChanged.next(this.venues.slice());
 
-    this.http.put(`http://localhost:3000/venues/${id}`, { venue: venue })
+    this.http.put(`${environment.apiEndpoint}/venues/${id}`, { venue: venue })
       .subscribe();
   }
 
   deleteVenue(venue: Venue) {
     let venueIndex = this.venues.indexOf(venue);
 
-    this.http.delete(`http://localhost:3000/venues/${venue.id}`).subscribe(() => {
+    this.http.delete(`${environment.apiEndpoint}/venues/${venue.id}`).subscribe(() => {
       this.venues.splice(venueIndex, 1);
       this.venuesChanged.next(this.venues.slice());
     });
@@ -56,11 +57,11 @@ export class VenueService {
 
   saveVenue(venue: Venue): Observable<Venue> {
     return this.http
-      .post<Venue>("http://localhost:3000/venues", { venue: venue });
+      .post<Venue>(`${environment.apiEndpoint}/venues`, { venue: venue });
   }
 
   fetchVenues(): Observable<Venue[]> {
-    return this.http.get<Venue[]>("http://localhost:3000/venues").pipe(
+    return this.http.get<Venue[]>(`${environment.apiEndpoint}/venues`).pipe(
       tap(venues => {
         this.setVenues(venues);
       })

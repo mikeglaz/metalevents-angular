@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Subject, Observable, BehaviorSubject } from 'rxjs';
 import { HttpClient } from "@angular/common/http";
 
+import { environment } from '../../environments/environment';
 import { User } from "../_models/user.model";
 import { AuthService } from "./auth.service";
 import { tap } from 'rxjs/operators';
@@ -40,7 +41,7 @@ export class UserService {
   // }
 
   updateUser(id: number, user: User) {
-    return this.http.put<User>(`http://localhost:3000/users/${id}`, { user: user })
+    return this.http.put<User>(`${environment.apiEndpoint}/${id}`, { user: user })
       .pipe(tap(user => {
         const userIndex = this.users.findIndex(user => user.id === id);
 
@@ -54,7 +55,7 @@ export class UserService {
   deleteUser(user: User) {
     let userIndex = this.users.indexOf(user);
 
-    this.http.delete(`http://localhost:3000/users/${user.id}`).subscribe(() => {
+    this.http.delete(`${environment.apiEndpoint}/users/${user.id}`).subscribe(() => {
       this.users.splice(userIndex, 1);
       this.usersChanged.next(this.users.slice());
     });
@@ -74,7 +75,7 @@ export class UserService {
   // }
 
   fetchUsers(): Observable<User[]> {
-    return this.http.get<User[]>("http://localhost:3000/users").pipe(
+    return this.http.get<User[]>(`${environment.apiEndpoint}/users`).pipe(
       tap(users => {
         this.setUsers(users);
       })
