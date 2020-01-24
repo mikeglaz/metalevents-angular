@@ -20,6 +20,7 @@ import { AuthService } from "../../_services/auth.service";
 export class PasswordUpdateComponent implements OnInit {
   isLoading = false;
   error: string = null;
+  message: string = null;
   token: string = null;
   formError: string = null;
   passwordUpdateForm: FormGroup;
