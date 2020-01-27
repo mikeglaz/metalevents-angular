@@ -43,7 +43,7 @@ export class EventService {
 
   updateEvent(id: number, newEvent: Event) {
     console.log(event);
-    this.http.put(`${environment.apiEndpoint}/events/${id}`, { event: event })
+    this.http.put(`${environment.apiEndpoint}/events/${id}`, { event: newEvent })
       .subscribe(response => {
         const oldEvent = this.events.find(event => event.id === id);
         const eventIndex = this.events.findIndex(event => event.id === id);

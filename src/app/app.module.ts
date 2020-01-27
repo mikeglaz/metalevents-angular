@@ -40,6 +40,7 @@ import { ProfileDetailComponent } from './profile/profile-detail/profile-detail.
 import { ProfilePasswordComponent } from './profile/profile-password/profile-password.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { CalendarDayComponent } from './calendar/calendar-day/calendar-day.component';
+import { FilterEventsPipe } from './_helpers/filter-events.pipe';
 
 
 @NgModule({
@@ -74,7 +75,8 @@ import { CalendarDayComponent } from './calendar/calendar-day/calendar-day.compo
     ProfileDetailComponent,
     ProfilePasswordComponent,
     CalendarComponent,
-    CalendarDayComponent
+    CalendarDayComponent,
+    FilterEventsPipe
   ],
   imports: [
     BrowserModule,

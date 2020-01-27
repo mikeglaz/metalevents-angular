@@ -1,7 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from '@angular/core';
 
 import { Event } from '../../_models/event.model';
 import { EventService } from '../../_services/event.service';
+import { Venue } from '../../_models/venue.model';
 
 
 @Component({
@@ -11,6 +12,7 @@ import { EventService } from '../../_services/event.service';
 })
 export class EventListComponent implements OnInit {
   events: Event[];
+  @Input() venue: Venue;
 
   constructor(private eventService: EventService) {}
 
@@ -24,3 +26,4 @@ export class EventListComponent implements OnInit {
     this.events = this.eventService.getEvents();
   }
 }
+

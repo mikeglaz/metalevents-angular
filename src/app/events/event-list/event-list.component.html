@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-12">
     <app-event-item
-      *ngFor="let event of events"
+      *ngFor="let event of events | filterEvents:venue.id"
       [event]="event"
       ></app-event-item>
   </div>
