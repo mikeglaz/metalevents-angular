@@ -27,8 +27,5 @@
 
 {{ day.getDate() }}
 <div *ngIf="events">
-  <p *ngFor="let event of events"><a [routerLink]="['/events', event.id]">{{ event.name }}</a></p>
+  <span *ngFor="let event of events"><a [routerLink]="['/events', event.id]">{{ event.name }}</a><br></span>
 </div>
-
-
-

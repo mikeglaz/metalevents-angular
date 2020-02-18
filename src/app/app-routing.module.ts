@@ -30,7 +30,7 @@ import { ProfilePasswordComponent } from './profile/profile-password/profile-pas
 import { CalendarComponent } from './calendar/calendar.component';
 
 const routes: Routes = [
-  { path: "", redirectTo: "/events", pathMatch: "full" },
+  { path: "", redirectTo: "/calendar", pathMatch: "full" },
   {
     path: "events",
     component: EventsComponent,

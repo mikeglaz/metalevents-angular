@@ -41,7 +41,7 @@ export class UserService {
   // }
 
   updateUser(id: number, user: User) {
-    return this.http.put<User>(`${environment.apiEndpoint}/${id}`, { user: user })
+    return this.http.put<User>(`${environment.apiEndpoint}/users/${id}`, { user: user })
       .pipe(tap(user => {
         const userIndex = this.users.findIndex(user => user.id === id);
 
