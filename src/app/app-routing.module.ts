@@ -10,7 +10,6 @@ import { EventResolverService } from "./_services/event-resolver.service";
 import { SignupComponent } from "./auth/signup/signup.component";
 import { LoginComponent } from "./auth/login/login.component";
 import { AuthGuard } from "./_helpers/auth.guard";
-import { Role } from "./_models/role";
 import { VenueResolverService } from "./_services/venue-resolver.service";
 import { VenueDetailComponent } from "./venues/venue-detail/venue-detail.component";
 import { VenueEditComponent } from "./venues/venue-edit/venue-edit.component";

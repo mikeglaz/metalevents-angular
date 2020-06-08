@@ -33,6 +33,7 @@ export class EventDetailComponent implements OnInit, OnDestroy {
     this.route.params.subscribe((params: Params) => {
       this.event = this.eventService.getEvent(+params.id);
       this.venue = this.venueService.getVenue(this.event.venue_id);
+      console.log(this.event);
     });
 
     this.authService.getCurrentUser().subscribe(user => {
