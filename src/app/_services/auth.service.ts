@@ -56,9 +56,8 @@ export class AuthService {
 
   signup(name: string, email: string, password: string) {
     return this.http
-      .post<AuthResponse>(`${environment.apiEndpoint}/signup`, { user: {
+      .post<AuthResponse>(`${environment.apiEndpoint}/signup`, {
         name, email, password
-      }
       })
       .pipe(catchError(this.handleError));
   }
