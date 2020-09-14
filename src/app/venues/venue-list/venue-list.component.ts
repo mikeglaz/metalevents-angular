@@ -20,7 +20,6 @@ export class VenueListComponent implements OnInit {
     });
 
     this.venues = this.venueService.getVenues();
-
   }
 
 }

@@ -35,7 +35,7 @@ export class VenueDetailComponent implements OnInit {
 
   onDeleteEvent() {
     if (confirm("Are you sure?")) {
-      this.venueService.deleteVenue(this.venue);
+      this.venueService.deleteVenue(this.venue.id);
       this.router.navigate(["/venues"]);
     }
   }

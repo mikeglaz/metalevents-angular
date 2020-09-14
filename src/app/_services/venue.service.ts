@@ -46,10 +46,14 @@ export class VenueService {
       .subscribe();
   }
 
-  deleteVenue(venue: Venue) {
-    let venueIndex = this.venues.indexOf(venue);
+  deleteVenue(id: number) {
+    let venueIndex = this.venues.findIndex((venue: Venue) => {
+      return venue.id === id;
+    });
 
-    this.http.delete(`${environment.apiEndpoint}/venues/${venue.id}`).subscribe(() => {
+    console.log(venueIndex);
+
+    this.http.delete(`${environment.apiEndpoint}/venues/${id}`).subscribe(() => {
       this.venues.splice(venueIndex, 1);
       this.venuesChanged.next(this.venues.slice());
     });
