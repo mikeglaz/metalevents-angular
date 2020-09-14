@@ -11,18 +11,22 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./venue-list.component.scss']
 })
 export class VenueListComponent implements OnInit {
-  // venues: Venue[];
+  venues: Venue[];
 
-  venues: Observable<{ venues: Venue[] }>;
+  // venues: Observable<{ venues: Venue[] }>;
 
 
   constructor(
     private venueService: VenueService,
-    private store: Store<{ venueList: { venues: Venue[] } }>
+    private store: Store<{ venue: { venues: Venue[] } }>
   ) { }
 
   ngOnInit() {
-    this.venues = this.store.select('venueList');
+    // this.venues = this.store.select('venueList');
+
+    this.store.select('venue').subscribe(venue => {
+      this.venues = venue.venues;
+    })
 
     // this.venues.subscribe((venues) => {
     //   console.log(venues);

@@ -11,7 +11,7 @@ const initialState = {
 
 export function venueReducer(
   state = initialState,
-  action: VenueActions.AddVenue
+  action: VenueActions.VenueActions
 ) {
   switch(action.type) {
     case VenueActions.ADD_VENUE:
@@ -19,5 +19,8 @@ export function venueReducer(
         ...state,
         venues: [...state.venues, action.payload]
       };
+
+      default:
+        return state;
   }
 }

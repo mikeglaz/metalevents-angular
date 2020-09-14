@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { FormGroup, FormControl, Validators  } from '@angular/forms';
+import { Store } from '@ngrx/store';
 
 import { Venue } from '../../_models/venue.model';
-import { VenueService } from '../../_services/venue.service';
-
+import { VenueService } from 'src/app/_services/venue.service';
+import * as VenueActions from 'src/app/venues/store/venue.actions';
 
 type State = {
   abbr: string,
@@ -38,7 +39,8 @@ export class VenueEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private venueService: VenueService,
-    private router: Router) {}
+    private router: Router,
+    private store: Store<{ venueList: { venues: Venue[] } }>) {}
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -49,11 +51,21 @@ export class VenueEditComponent implements OnInit {
   }
 
   onSubmit() {
+
+    const newVenue = new Venue(
+      666,
+      this.venueForm.value.name,
+      this.venueForm.value.address,
+      this.venueForm.value.city,
+      this.venueForm.value. state,
+      this.venueForm.value.url);
+
     if(this.editMode) {
       this.venueService.updateVenue(this.venue.id, this.venueForm.value);
       // this.dataService.updateEvent(this.id, this.eventForm.value);
     } else {
-      this.venueService.newVenue(this.venueForm.value);
+      this.store.dispatch(new VenueActions.AddVenue(newVenue));
+      // this.venueService.newVenue(this.venueForm.value);
       // this.dataService.saveEvent(this.eventForm.value);
     }
 

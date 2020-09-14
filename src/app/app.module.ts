@@ -42,7 +42,7 @@ import { ProfilePasswordComponent } from './profile/profile-password/profile-pas
 import { CalendarComponent } from './calendar/calendar.component';
 import { CalendarDayComponent } from './calendar/calendar-day/calendar-day.component';
 import { FilterEventsPipe } from './_helpers/filter-events.pipe';
-import { venueListReducer } from './venues/venue-list/store/venue-list.reducer';
+import { venueReducer } from './venues/store/venue.reducer';
 
 
 @NgModule({
@@ -83,7 +83,7 @@ import { venueListReducer } from './venues/venue-list/store/venue-list.reducer';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot({ venueList: venueListReducer }),
+    StoreModule.forRoot({ venue: venueReducer }),
     NgbModule,
     ReactiveFormsModule,
     // FormsModule,
