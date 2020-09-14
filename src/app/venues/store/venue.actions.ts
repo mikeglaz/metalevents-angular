@@ -23,4 +23,7 @@ export class DeleteVenue implements Action {
   constructor(public payload: number) {}
 }
 
-export type VenueActions = AddVenue; // | AddVenues
+export type VenueActions =
+  | AddVenue
+  | UpdateVenue
+  | DeleteVenue;

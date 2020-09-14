@@ -20,6 +20,32 @@ export function venueReducer(
         venues: [...state.venues, action.payload]
       };
 
+      case VenueActions.UPDATE_VENUE:
+        const venue = state.venues[action.payload.index];
+        const updatedVenue = {
+          ...venue,
+          ...action.payload.venue
+        };
+
+        const updatedVenues = [...state.venues];
+        updatedVenues[action.payload.index] = updatedVenue;
+
+        return {
+          ...state,
+          venues: updatedVenues
+        };
+
+
+      case VenueActions.DELETE_VENUE:
+
+
+        return {
+          ...state,
+          venues: state.venues.filter((venue, idx) => {
+            return idx !== action.payload;
+          })
+        };
+
       default:
         return state;
   }
