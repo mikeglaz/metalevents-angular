@@ -5,6 +5,7 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { JwtModule } from "@auth0/angular-jwt";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { StoreModule } from '@ngrx/store';
 
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
@@ -41,6 +42,7 @@ import { ProfilePasswordComponent } from './profile/profile-password/profile-pas
 import { CalendarComponent } from './calendar/calendar.component';
 import { CalendarDayComponent } from './calendar/calendar-day/calendar-day.component';
 import { FilterEventsPipe } from './_helpers/filter-events.pipe';
+import { venueListReducer } from './venues/venue-list/store/venue-list.reducer';
 
 
 @NgModule({
@@ -81,6 +83,7 @@ import { FilterEventsPipe } from './_helpers/filter-events.pipe';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    StoreModule.forRoot({ venueList: venueListReducer }),
     NgbModule,
     ReactiveFormsModule,
     // FormsModule,

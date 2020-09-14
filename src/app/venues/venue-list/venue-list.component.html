@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-12">
     <app-venue-item
-      *ngFor="let venue of venues"
+      *ngFor="let venue of (venues | async).venues"
       [venue]="venue"
       ></app-venue-item>
   </div>
