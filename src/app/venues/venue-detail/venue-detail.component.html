@@ -8,7 +8,7 @@
 <br>
 <div *ngIf="currentUser?.admin">
   <button class="btn btn-warning" routerLink="edit">Edit Venue</button>
-  <button class="btn btn-danger" (click)="onDeleteEvent()">Delete Venue</button>
+  <button class="btn btn-danger" (click)="onDelete()">Delete Venue</button>
 </div>
 <br>
 <br>
@@ -18,4 +18,3 @@
     <app-event-list [venue]=venue></app-event-list>
   </div>
 </div>
-

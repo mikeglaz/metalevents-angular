@@ -14,7 +14,7 @@ export class AddVenue implements Action {
 export class UpdateVenue implements Action {
   readonly type = UPDATE_VENUE;
 
-  constructor(public payload: { index: number, venue: Venue }) {}
+  constructor(public payload: { id: number, venue: Venue }) {}
 }
 
 export class DeleteVenue implements Action {

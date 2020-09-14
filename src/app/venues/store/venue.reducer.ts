@@ -21,14 +21,19 @@ export function venueReducer(
       };
 
       case VenueActions.UPDATE_VENUE:
-        const venue = state.venues[action.payload.index];
+        const venueIndex = state.venues.findIndex((venue: Venue) => {
+          return venue.id === action.payload.id;
+        });
+
+        const venue = state.venues[venueIndex];
+
         const updatedVenue = {
           ...venue,
           ...action.payload.venue
         };
 
         const updatedVenues = [...state.venues];
-        updatedVenues[action.payload.index] = updatedVenue;
+        updatedVenues[venueIndex] = updatedVenue;
 
         return {
           ...state,
@@ -37,12 +42,10 @@ export function venueReducer(
 
 
       case VenueActions.DELETE_VENUE:
-
-
         return {
           ...state,
-          venues: state.venues.filter((venue, idx) => {
-            return idx !== action.payload;
+          venues: state.venues.filter((venue: Venue) => {
+            return venue.id !== action.payload;
           })
         };
 

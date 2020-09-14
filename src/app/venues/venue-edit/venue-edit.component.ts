@@ -40,7 +40,7 @@ export class VenueEditComponent implements OnInit {
     private route: ActivatedRoute,
     private venueService: VenueService,
     private router: Router,
-    private store: Store<{ venueList: { venues: Venue[] } }>) {}
+    private store: Store<{ venue: { venues: Venue[] } }>) {}
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -61,7 +61,8 @@ export class VenueEditComponent implements OnInit {
       this.venueForm.value.url);
 
     if(this.editMode) {
-      this.venueService.updateVenue(this.venue.id, this.venueForm.value);
+      this.store.dispatch(new VenueActions.UpdateVenue({ id: this.venue.id, venue: this.venueForm.value}));
+      // this.venueService.updateVenue(this.venue.id, this.venueForm.value);
       // this.dataService.updateEvent(this.id, this.eventForm.value);
     } else {
       this.store.dispatch(new VenueActions.AddVenue(newVenue));
