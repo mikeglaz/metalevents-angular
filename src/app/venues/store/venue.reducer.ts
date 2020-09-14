@@ -1,7 +1,15 @@
 import { Venue } from 'src/app/_models/venue.model';
 import * as VenueActions from './venue.actions';
 
-const initialState = {
+export interface VenueState {
+  venues: Venue[];
+}
+
+export interface AppState {
+  venueState: VenueState;
+}
+
+const initialState: VenueState = {
   venues: [
     new Venue(1, 'Reggies Xock Club', '2015 S State St', 'Chicago', 'IL', 'https://www.reggieslive.com/'),
     new Venue(2, 'Vic Theatre', '3145 N Sheffield Ave', 'Chicago', 'IL', 'http://www.victheatre.com/'),
@@ -10,7 +18,7 @@ const initialState = {
 };
 
 export function venueReducer(
-  state = initialState,
+  state: VenueState = initialState,
   action: VenueActions.VenueActions
 ) {
   switch(action.type) {
