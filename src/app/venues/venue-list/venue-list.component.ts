@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Venue } from '../../_models/venue.model';
 import { VenueService } from '../../_services/venue.service';
 import { Store } from '@ngrx/store';
+import * as fromVenue from 'src/app/venues/store/venue.reducer';
 
 @Component({
   selector: 'app-venue-list',
@@ -18,14 +19,14 @@ export class VenueListComponent implements OnInit {
 
   constructor(
     private venueService: VenueService,
-    private store: Store<{ venue: { venues: Venue[] } }>
+    private store: Store<fromVenue.AppState>
   ) { }
 
   ngOnInit() {
     // this.venues = this.store.select('venueList');
 
-    this.store.select('venue').subscribe(venue => {
-      this.venues = venue.venues;
+    this.store.select('venueState').subscribe(venueState => {
+      this.venues = venueState.venues;
     })
 
     // this.venues.subscribe((venues) => {

@@ -83,7 +83,7 @@ import { venueReducer } from './venues/store/venue.reducer';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot({ venue: venueReducer }),
+    StoreModule.forRoot({ venueState: venueReducer }),
     NgbModule,
     ReactiveFormsModule,
     // FormsModule,

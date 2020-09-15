@@ -8,6 +8,7 @@ import { VenueService } from '../../_services/venue.service';
 import { AuthService } from '../../_services/auth.service';
 import { User } from '../../_models/user.model';
 import * as VenueActions from 'src/app/venues/store/venue.actions';
+import * as fromVenue from 'src/app/venues/store/venue.reducer';
 
 @Component({
   selector: 'app-venue-detail',
@@ -24,11 +25,11 @@ export class VenueDetailComponent implements OnInit {
     private router: Router,
     private venueService: VenueService,
     private authService: AuthService,
-    private store: Store<{ venue: { venues: Venue[] } }>) {}
+    private store: Store<fromVenue.AppState>) {}
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
-      this.store.select('venue').subscribe(venueArray => {
+      this.store.select('venueState').subscribe(venueArray => {
         this.venue = venueArray.venues.find(venue => {
           return venue.id === (+params.id);
         })
