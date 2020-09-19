@@ -46,7 +46,7 @@ export class VenueEditComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
-      this.store.select('venueState').subscribe(venueArray => {
+      this.store.select('venueList').subscribe(venueArray => {
         this.venue = venueArray.venues.find(venue => {
           return venue.id === (+params.id);
         })

@@ -43,6 +43,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { CalendarDayComponent } from './calendar/calendar-day/calendar-day.component';
 import { FilterEventsPipe } from './_helpers/filter-events.pipe';
 import { venueReducer } from './venues/store/venue.reducer';
+import { authReducer } from './auth/store/auth.reducer';
 
 
 @NgModule({
@@ -83,7 +84,10 @@ import { venueReducer } from './venues/store/venue.reducer';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot({ venueState: venueReducer }),
+    StoreModule.forRoot({
+      venueList: venueReducer,
+      auth: authReducer
+    }),
     NgbModule,
     ReactiveFormsModule,
     // FormsModule,

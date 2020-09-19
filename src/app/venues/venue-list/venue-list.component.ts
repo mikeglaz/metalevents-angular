@@ -25,8 +25,8 @@ export class VenueListComponent implements OnInit {
   ngOnInit() {
     // this.venues = this.store.select('venueList');
 
-    this.store.select('venueState').subscribe(venueState => {
-      this.venues = venueState.venues;
+    this.store.select('venueList').subscribe(venueList => {
+      this.venues = venueList.venues;
     })
 
     // this.venues.subscribe((venues) => {
