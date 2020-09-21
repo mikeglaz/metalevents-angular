@@ -4,9 +4,12 @@ import { catchError, tap } from "rxjs/operators";
 import { throwError, BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Store } from '@ngrx/store';
 
 import { environment } from '../../environments/environment';
 import { User } from '../_models/user.model';
+import * as fromApp from '../store/app.reducer';
+import * as AuthActions from '../auth/store/auth.actions';
 
 
 export interface AuthResponse {
@@ -33,7 +36,8 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private store: Store<fromApp.AppState>
   ) {
     this.currentUserListener = new BehaviorSubject<User>(null);
     this.messageListener = new BehaviorSubject<string>(null);
@@ -79,7 +83,13 @@ export class AuthService {
         this.setAuthTimer(duration);
 
         this.saveAuthData(this.token, expirationDate);
-        this.setCurrentUser();
+        // this.setCurrentUser();
+        this.store.dispatch(new AuthActions.Login({
+          id: decodedToken.id,
+          name: decodedToken.name,
+          email: decodedToken.email,
+          admin: decodedToken.admin
+        }));
 
         this.router.navigate(['/events']);
       }
@@ -125,7 +135,7 @@ export class AuthService {
     return {
       token: token,
       expirationDate: new Date(expirationDate)
-    }
+    };
   }
 
   private setCurrentUser() {
@@ -192,7 +202,8 @@ export class AuthService {
     // this.currentUser.next(null);
     this.token = null;
     // this.isAuthenticated = false;
-    this.currentUserListener.next(null);
+    // this.currentUserListener.next(null);
+    this.store.dispatch(new AuthActions.Logout());
     this.router.navigate(['/auth/login']);
   }
 
