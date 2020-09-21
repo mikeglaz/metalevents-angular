@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Venue } from '../../_models/venue.model';
 import { VenueService } from '../../_services/venue.service';
 import { Store } from '@ngrx/store';
-import * as fromVenue from 'src/app/venues/store/venue.reducer';
+import * as fromApp from 'src/app/store/app.reducer';
 
 @Component({
   selector: 'app-venue-list',
@@ -19,7 +19,7 @@ export class VenueListComponent implements OnInit {
 
   constructor(
     private venueService: VenueService,
-    private store: Store<fromVenue.AppState>
+    private store: Store<fromApp.AppState>
   ) { }
 
   ngOnInit() {

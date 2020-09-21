@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { Venue } from '../../_models/venue.model';
 import { VenueService } from 'src/app/_services/venue.service';
 import * as VenueActions from 'src/app/venues/store/venue.actions';
-import * as fromVenue from 'src/app/venues/store/venue.reducer';
+import * as fromApp from 'src/app/store/app.reducer';
 
 
 type State = {
@@ -42,7 +42,7 @@ export class VenueEditComponent implements OnInit {
     private route: ActivatedRoute,
     private venueService: VenueService,
     private router: Router,
-    private store: Store<fromVenue.AppState>) {}
+    private store: Store<fromApp.AppState>) {}
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {

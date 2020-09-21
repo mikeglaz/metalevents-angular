@@ -5,10 +5,6 @@ export interface State {
   venues: Venue[];
 }
 
-export interface AppState {
-  venueList: State;
-}
-
 const initialState: State = {
   venues: [
     new Venue(1, 'Reggies Xock Club', '2015 S State St', 'Chicago', 'IL', 'https://www.reggieslive.com/'),

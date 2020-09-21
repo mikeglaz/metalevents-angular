@@ -8,7 +8,7 @@ import { VenueService } from '../../_services/venue.service';
 import { AuthService } from '../../_services/auth.service';
 import { User } from '../../_models/user.model';
 import * as VenueActions from 'src/app/venues/store/venue.actions';
-import * as fromVenue from 'src/app/venues/store/venue.reducer';
+import * as fromApp from 'src/app/store/app.reducer';
 
 @Component({
   selector: 'app-venue-detail',
@@ -25,7 +25,7 @@ export class VenueDetailComponent implements OnInit {
     private router: Router,
     private venueService: VenueService,
     private authService: AuthService,
-    private store: Store<fromVenue.AppState>) {}
+    private store: Store<fromApp.AppState>) {}
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
