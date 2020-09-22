@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
 
 import { EventService } from '../../_services/event.service';
 import { Venue } from '../../_models/venue.model';
 import { VenueService } from '../../_services/venue.service';
 import { Event } from '../../_models/event.model';
+import * as fromApp from 'src/app/store/app.reducer';
+import * as EventActions from 'src/app/events/store/event.actions';
+
 
 
 @Component({
@@ -23,24 +27,39 @@ export class EventEditComponent implements OnInit {
     private route: ActivatedRoute,
     private eventService: EventService,
     private router: Router,
-    private venueService: VenueService)
+    private venueService: VenueService,
+    private store: Store<fromApp.AppState>)
   {}
 
   ngOnInit() {
-    this.route.params
-      .subscribe((params: Params) => {
-        this.event = this.eventService.getEvent(+params.id);
+    // this.route.params
+    //   .subscribe((params: Params) => {
+    //     this.event = this.eventService.getEvent(+params.id);
+    //     this.editMode = params.id != null;
+    //     this.venues = this.venueService.getVenues();
+    //     this.initForm();
+    //   });
+
+      this.route.params.subscribe((params: Params) => {
+        this.store.select('eventList').subscribe(eventList => {
+          this.event = eventList.events.find(event => {
+            return event.id === (+params.id);
+          });
+
+        });
+
+
+        // this.venue = this.venueService.getVenue(+params.id);
         this.editMode = params.id != null;
-        this.venues = this.venueService.getVenues();
         this.initForm();
       });
-
 
   }
 
   onSubmit() {
     if(this.editMode) {
-      this.eventService.updateEvent(this.event.id, this.eventForm.value);
+      this.store.dispatch(new EventActions.UpdateEvent({ id: this.event.id, event: this.eventForm.value}));
+      // this.eventService.updateEvent(this.event.id, this.eventForm.value);
       // this.dataService.updateEvent(this.id, this.eventForm.value);
     } else {
       this.eventService.newEvent(this.eventForm.value);
