@@ -41,16 +41,17 @@ export class EventDetailComponent implements OnInit, OnDestroy {
     //   });
     // });
     this.route.params.subscribe((params: Params) => {
-      // this.event = this.eventService.getEvent(+params.id);
+      this.event = this.eventService.getEvent(+params.id);
+      this.venue = this.venueService.getVenue(this.event.venue_id);
 
-      this.store.select('eventList').subscribe(eventList => {
-        this.event = eventList.events.find(event => {
-          return event.id === (+params.id);
-        })
-
-        this.venue = this.venueService.getVenue(this.event.venue_id);
-
-      });
+      // this.store.select('eventList').subscribe(eventList => {
+      //   this.event = eventList.events.find(event => {
+      //     return event.id === (+params.id);
+      //   });
+      //
+      //   this.venue = this.venueService.getVenue(this.event.venue_id);
+      //
+      // });
 
     });
 

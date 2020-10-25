@@ -32,27 +32,28 @@ export class EventEditComponent implements OnInit {
   {}
 
   ngOnInit() {
-    // this.route.params
-    //   .subscribe((params: Params) => {
-    //     this.event = this.eventService.getEvent(+params.id);
-    //     this.editMode = params.id != null;
-    //     this.venues = this.venueService.getVenues();
-    //     this.initForm();
-    //   });
-
-      this.route.params.subscribe((params: Params) => {
-        this.store.select('eventList').subscribe(eventList => {
-          this.event = eventList.events.find(event => {
-            return event.id === (+params.id);
-          });
-
-        });
-
-
-        // this.venue = this.venueService.getVenue(+params.id);
+    this.route.params
+      .subscribe((params: Params) => {
+        this.event = this.eventService.getEvent(+params.id);
         this.editMode = params.id != null;
+        this.venues = this.venueService.getVenues();
         this.initForm();
       });
+
+      // this.route.params.subscribe((params: Params) => {
+      //   this.store.select('eventList').subscribe(eventList => {
+      //     this.event = eventList.events.find(event => {
+      //       return event.id === (+params.id);
+      //     });
+      //     this.venues = this.venueService.getVenues();
+      //
+      //   });
+      //
+      //
+      //   // this.venue = this.venueService.getVenue(+params.id);
+      //   this.editMode = params.id != null;
+      //   this.initForm();
+      // });
 
   }
 
